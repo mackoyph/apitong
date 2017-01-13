@@ -25,7 +25,7 @@
 				Admin Accounts
 			</div>
 			<div class='box-body'>
-			<table id='admin-accounts-table' class='table table-bordered table-hover'>
+			<table id='admin-accounts-table' class='table dataTable table-bordered table-hover'>
 				<thead>
 					<tr>
 						<th>Last Name</th>
