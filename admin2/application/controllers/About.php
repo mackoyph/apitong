@@ -2,6 +2,7 @@
 
 class About extends CI_Controller {
 	private $c = "ABOUT CONTROLLER";
+
 	private function debug($function, $message)
 	{
 		log_message('debug', $this->c . " : " . $function . " : " . $message);
@@ -18,8 +19,7 @@ class About extends CI_Controller {
 	
 	private function setupData()
 	{
-		$data['username'] = $this->session->userdata('logged_in')['username'];
-		
+		$data['username'] = $this->session->userdata('logged_in')['username'];		
 		$data['userid'] = $this->session->userdata('logged_in')['id'];
 		$data['errormsg'] = NULL;
 		return $data;
@@ -28,25 +28,27 @@ class About extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
+		$this->load->model('about_model');
 	}
 	
 	function index()
 	{
 		$data = $this->setupData();
-		$this->load->model('about_model');
+		$data['jsvars'] = array( 'sidebar_active' => 'about-page');
 		
 		$main_about_article = $this->about_model->getMainAboutArticle();
-		if(count($main_about_article) == 0)
-		{
-			$data['main_about'] = "";
-		}
-		else
+
+		if(count($main_about_article) != 0)
 		{
 			$data['main_about'] = $main_about_article[0];	
 		}
-		
-		$articles = 
-		$data['jsvars'] = array( 'sidebar_active' => 'about-page');
+
+		$this->debug('index', 'main_about=' . var_export($data['main_about'], TRUE));
+		$articles = $this->about_model->getAboutArticles();
+
+		$this->debug('index', 'articles=' . var_export($articles, TRUE));
+		$data['about_articles'] = $articles;
+
 		$this->load->view('templates/header', $data);
 		$this->load->view('about/view', $data);
 		$this->load->view('templates/footer', $data);
