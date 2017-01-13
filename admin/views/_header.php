@@ -82,7 +82,7 @@
             </li>
             <li class="parent"><a href="#"><i class="icon s7-home"></i><span>Home Page</span></a>
               <ul class="sub-menu">
-                <li><a href="#">Main Banner</a>
+                <li><a href="index.php#home-banner" onclick="switchpage('home-banner');">Main Banner</a>
                 </li>
                 <li><a href="#">Main Tagline</a>
                 </li>
