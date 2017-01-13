@@ -1,0 +1,28 @@
+HOME
+-Logo Resize
+-vector for header
+-
+ABOUT
+-History Apitong 
+-Map 
+-Prizes
+- 
+
+GALLERY 
+-Happy Family
+-Construction Photos
+
+LOG IN 
+
+
+
+HOME TOUR 
+-3D home tour 
+
+
+CMS 
+Add User (home owner)
+delete User (Home Owner) 
+edit text 
+upload image 
+delete image 
