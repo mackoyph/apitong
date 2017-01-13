@@ -5,7 +5,7 @@ Class User extends CI_Model
 	{
 		$array = array('ACCESS_USERNAME' => $username, 'ACCESS_PASSWORD' => MD5($password));
 		$email = array('ACCESS_EMAIL' => $username, 'ACCESS_PASSWORD' => MD5($password));
-		$this -> db -> select('ACCESS_NO')
+		$this -> db -> select('ACCESS_NO, ACCESS_USERNAME')
 					-> from('admin_access')
 					-> where($array)
 					-> or_where($email);
