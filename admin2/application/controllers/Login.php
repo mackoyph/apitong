@@ -2,6 +2,11 @@
 
 class Login extends CI_Controller {
 		
+	private $c = "LOGIN CONTROLLER";
+	private function debug($function, $message)
+	{
+		log_message('debug', $this->c . " : " . $function . " : " . $message);
+	}
 	function __construct()
 	{
 		parent::__construct();
@@ -10,12 +15,15 @@ class Login extends CI_Controller {
 	
 	function index()
 	{
+		$this->debug('index', 'Inside index() method.');
 		if ($this->session->has_userdata('logged_in'))
 		{
+			$this->debug('index', 'User already logged in, redirecting to home.');
 			redirect('Home');
 		}
 		else
 		{
+			$this->debug('index', 'user not yet logged in, loading the login page');
 			$this->load->helper(array('form'));
 			$this->load->view('login_view');
 		}
@@ -23,19 +31,21 @@ class Login extends CI_Controller {
 
 	function verifyLogin()
 	{
+		$this->debug('verifyLogin', 'inside verifyLogin');
 		//This method will have the credentials validation
 		$this->load->library('form_validation');
-
 		$this->form_validation->set_rules('username', 'Username', 'trim|required');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|callback_check_database');
 
 		 if($this->form_validation->run() == FALSE)
 		{
+			$this->debug('verifyLogin', 'User credentials validation failed, showing login page again.');
 			//Field validation failed.  User redirected to login page
 		 	$this->load->view('login_view');
 	 	}
 	 	else
 	 	{
+			 $this->debug('verifyLogin', 'User credential validation succeeded, redirecting to private area.');
 		 	//Go to private area
 			redirect('Login');
 	 	}
@@ -44,9 +54,8 @@ class Login extends CI_Controller {
 
 	function check_database($password)
 	{
-		//Field validation succeeded.  Validate against database
+		//$this->debug('check_database', 'password='.$password);
 		$username = $this->input->post('username');
-		//query the database
 	 	$result = $this->user->login($username, $password);
 
 	 	if($result)
@@ -55,9 +64,10 @@ class Login extends CI_Controller {
 		 	foreach($result as $row)
 		 	{
 				$sess_array = array(
-					'id' => $row->user_id,
-					'username' => $row->username
+					'id' => $row->ACCESS_NO,
+					'username' => $row->ACCESS_USERNAME
 				);
+				$this->debug('check_database', 'sess_array=' . var_export($sess_array, TRUE));
 				$this->session->set_userdata('logged_in', $sess_array);
 			}
 			return TRUE;
@@ -65,7 +75,7 @@ class Login extends CI_Controller {
 		else
 		{
 			$this->form_validation->set_message('check_database', 'Invalid username or password');
-			return false;
+			return FALSE;
 		}
 	}
 }
