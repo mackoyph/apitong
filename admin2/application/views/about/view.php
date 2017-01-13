@@ -46,6 +46,36 @@
 				</div>
 				<div class='box-body'>
 					table for articles goes here
+					<table class='table dataTable table-hover table-bordered'>
+						<thead>
+							<tr>
+								<td>Title</td>
+								<td>Text</td>
+								<td>Author</td>
+								<td>Category</td>
+								<td>Article Information</td>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+								foreach($about_articles as $row)
+								{
+									echo "<tr>";
+									echo "<td><h4>" . $row->title . "</h4></td>";
+									echo "<td>" . substr($row->text, 0, 100) ."..." . "</td>";
+									echo "<td>" . $row->author_username . "</td>";
+									echo "<td>" . $row->name . "</td>";
+									echo "<td>";
+										echo "Last edited: " . $row->last_edit_date;
+										echo "<br/>Last edited by: " . $row->editor_username; 
+										echo "<br/>Created on: " . $row->creation_date;
+									echo "</td>";
+									echo "</tr>";
+
+								}
+							?>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
