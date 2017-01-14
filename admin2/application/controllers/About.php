@@ -33,6 +33,7 @@ class About extends CI_Controller {
 	
 	function index()
 	{
+		$this->check_loggedin();
 		$data = $this->setupData();
 		$data['jsvars'] = array( 'sidebar_active' => 'about-page');
 		
