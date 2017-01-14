@@ -54,5 +54,32 @@ class About extends CI_Controller {
 		$this->load->view('about/view', $data);
 		$this->load->view('templates/footer', $data);
 	}
+
+	function new_article()
+	{
+		$this->debug('new_article', "POST Variables=" . var_export($this->input->post(), TRUE));
+		$this->check_loggedin();
+		$data = $this->setupData();
+		$data['jsvars'] = array( 'sidebar_active' => 'about-page');
+
+		//load form validation
+		//load form helper
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->debug('new_article', 'form validation run = false, redirecting to new article page again');
+			$this->load->view('templates/header', $data);
+			$this->load->view('about/new_article', $data);
+			$this->load->view('templates/footer', $data);
+		}
+		else
+		{
+			//save to database
+			//redirect back to admin panel for about page
+		}
+
+	}
 }
 ?>
