@@ -43,6 +43,7 @@
 			<div class='box box-primary'>
 				<div class='box-header'>
 					<h3>Articles</h3>
+					<a href="<?php echo base_url('about/new_article');?>" class='btn btn-primary'> New Article</a>
 				</div>
 				<div class='box-body'>
 					table for articles goes here
