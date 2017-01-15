@@ -56,6 +56,68 @@ class About extends CI_Controller {
 		$this->load->view('templates/footer', $data);
 	}
 
+	function edit_article($id)
+	{
+		if(!isset($id))
+		{
+			$this->debug('edit_article', 'invalid article id, redirecting to about');
+			redirect('about');
+		}
+
+		$this->check_loggedin();
+		
+		$data = $this->setupData();
+		$data['jsvars'] = array( 'sidebar_active' => 'about-page');
+
+		//get article categories from db
+		$data['about_categories'] = $this->about_model->getAboutCategories();
+
+		//get article from db
+		$article = $this->about_model->getArticle($id);
+		if(count($article) != 0)
+		{
+			$data['article'] = $article[0];
+		}
+
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('title', 'First Name', 'trim|required');
+		$this->form_validation->set_rules('editor1', 'First Name', 'trim|required');
+		$this->form_validation->set_rules('category', 'First Name', 'numeric|required');
+
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->debug("edit_article", 'form validation failed, displaying edit page again');
+			$this->load->view('templates/header', $data);
+			$this->load->view('about/edit_article', $data);
+			$this->load->view('templates/footer', $data);
+		}
+		else
+		{
+			//update database here
+			$postvars = $this->input->post();
+
+			$dbParams = array (
+				'title' => $postvars['title'],
+				'text' => $postvars['editor1'],
+				'category' =>$postvars['category'],
+				'last_edited_by' => $data['userid'],
+				'last_edit_date' => date("Y-m-d H:i:s")
+			);
+
+			$dbResult = $this->about_model->updateArticle($id, $dbParams);
+			if($dbResult) 
+			{
+				$this->debug("edit_article", 'successful db update, redirecting to about');
+				redirect('about');
+			}
+			else 
+			{
+
+			}
+		}
+	}
+
 	function new_article()
 	{
 		$this->debug('new_article', "POST Variables=" . var_export($this->input->post(), TRUE));
@@ -108,11 +170,15 @@ class About extends CI_Controller {
 			$dbResult = $this->about_model->addAboutArticle($dbParams);
 			if ($dbResult)
 			{
+				$this->debug('new_article', 'article added to databasse, redirecting to about');
 				redirect('about');
 			}
 			else
 			{
-				$data['errormsg'] = 'Could not update database.';
+				$data['errormsg'] = 'Could not add article to database.';
+				$this->load->view('templates/header', $data);
+				$this->load->view('about/new_article', $data);
+				$this->load->view('templates/footer', $data);
 			}
 			
 			//redirect back to admin panel for about page
