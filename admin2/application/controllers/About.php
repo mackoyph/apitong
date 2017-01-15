@@ -207,6 +207,44 @@ class About extends CI_Controller {
 		}
 	}
 
+	function delete_article($id = FALSE)
+	{
+		if($id === FALSE)
+		{
+			$response = array(
+				"result" => "fail",
+				"message" => "No Article id provided"
+			);
+			echo json_encode($response);
+		}
+		if(!$this->session->has_userdata('logged_in'))
+		{
+			$response = array(
+				"result" => "fail",
+				"message" => "You are not authorized to access this resource."
+			);
+			echo json_encode($response);
+		}
+
+		$dbResult = $this->about_model->deleteArticle($id);
+		if ($dbResult === FALSE)
+		{
+			$response = array(
+				"result" => "fail",
+				"message" => "Could not delete the article."
+			);
+			echo json_encode($response);
+		}
+		else
+		{
+			$response = array(
+				"result" => "fail",
+				"message" => "Article was deleted."
+			);
+			echo json_encode($response);
+		}
+	}
+
 	function new_article()
 	{
 		$this->debug('new_article', "POST Variables=" . var_export($this->input->post(), TRUE));
