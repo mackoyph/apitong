@@ -63,10 +63,16 @@ class About extends CI_Controller {
 		$data = $this->setupData();
 		$data['jsvars'] = array( 'sidebar_active' => 'about-page');
 
+		$this->debug('new_article' , 'php timezone=' . date_default_timezone_get());
+		$data['about_categories'] = $this->about_model->getAboutCategories();
+
 		//load form validation
 		//load form helper
 		$this->load->helper('form');
 		$this->load->library('form_validation');
+		$this->form_validation->set_rules('title', 'First Name', 'trim|required');
+		$this->form_validation->set_rules('editor1', 'First Name', 'trim|required');
+		$this->form_validation->set_rules('category', 'First Name', 'numeric');
 
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -78,6 +84,37 @@ class About extends CI_Controller {
 		else
 		{
 			//save to database
+			$this->debug('new_article', 'Title=' . var_export($this->input->post('title'), TRUE));
+			$this->debug('new_article', 'text=' . var_export($this->input->post('editor1'), TRUE));
+			$this->debug('new_article', 'category=' . var_export($this->input->post('category'), TRUE));
+			$title = $this->input->post('title');
+			$text = $this->input->post('editor1');
+			$category = $this->input->post('category');
+			$creation_date = date("Y-m-d H:i:s");
+			$edit_date = $creation_date;
+			$author = $data['userid'];
+			$editor = $author;
+
+			$dbParams = array(
+				'author_id' => $author,
+				'last_edited_by' => $editor,
+				'creation_date' =>$creation_date,
+				'last_edit_date' => $edit_date,
+				'title' => $title,
+				'text' => $text,
+				'category' => $category
+			);
+
+			$dbResult = $this->about_model->addAboutArticle($dbParams);
+			if ($dbResult)
+			{
+				redirect('about');
+			}
+			else
+			{
+				$data['errormsg'] = 'Could not update database.';
+			}
+			
 			//redirect back to admin panel for about page
 		}
 
