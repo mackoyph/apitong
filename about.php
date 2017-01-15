@@ -58,11 +58,23 @@
 			
 			<!-- Article main content -->
 			<article class="col-sm-8 maincontent">
+				<?php 
+					ini_set("allow_url_fopen", 1);
+					$main_about = file_get_contents('http://localhost/apitong/admin2/about/jsonserver/AboutPage');
+					$obj = json_decode($main_about);
+					$obj = $obj[0];
+				?>
+
+				<!--
 				<header class="page-header">
-					<h1 class="page-title">About us</h1>
+					<h1 class="page-title"><?php echo $obj->title; ?></h1>
 				</header>
-				
+				-->
 				<center><p><img src="assets/images/family.jpg" width="500" ></p><center>
+				
+				<?php echo $obj->text;?>
+				
+				<!--
 				<h3>ALL THAT YOU NEED IS HERE</h3>
 				<p><br>
 				<center><p><img src="assets/images/black.png" width="500" ></p><center
@@ -73,7 +85,7 @@
 				
 				<br>Why Apitong Village? The land where this village is situated used to be a place where Apitong Trees grow gracefully and fruitfully before it was developed, hence naming the street leading to the village, Apitong Drive. And as we think for a name, someone suggested why not use Apitong? It depicts all the good elements that a tree can have, a strong branch, a useful fruits and leaves, almost all of its parts are advantageous. Just like our village, where everyone is willing to help each other, a village bound by a good relationship, 
 				a useful and helpful community, and where everyone will have their minds at a peaceful state.</p>
-				
+				-->
 				
 				
 			</article>
