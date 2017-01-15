@@ -115,7 +115,7 @@ function carousel() {
 				<div class="col-md-3 col-sm-6 highlight">
 					<div class="h-caption"><h4><i class="fa fa-cogs fa-5"></i>SECURITY</h4></div>
 					<div class="h-body text-center">
-						<p>Apitong guarantees its homeowners' safety with exquisitely designed guarded entrance gates equipped with CCTV, as well as high perimeter fences, and round-the-clock roving security guards.  These security features allow families to feel safe in their own homes – as should always be the case – and enjoy worry-free lives every single day, making their homes and community safe havens and comfortable escapes from the stresses and fears of city living.</div>
+						<p><?php echo $homesecurity ?></div>
 				</div>
 				<div class="col-md-3 col-sm-6 highlight">
 					<div class="h-caption"><h4><i class="fa fa-flash fa-5"></i>INTERIOR AND EXTERIOR DESIGN</h4></div>

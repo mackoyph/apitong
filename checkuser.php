@@ -1,5 +1,5 @@
 <?php 
-		$dbcon = mysqli_connect("localhost", "root", "walalang") or die("SERVER IS NOT AVAILABLE~".mysql_error());
+		$dbcon = mysqli_connect("localhost", "root", "") or die("SERVER IS NOT AVAILABLE~".mysql_error());
 		mysqli_select_db($dbcon,"apitong") or die ("no data".mysql_error());
 
 	$uname = $_POST['uname'];
@@ -7,10 +7,10 @@
 
 	$sql = "SELECT * FROM user_access WHERE (ACCESS_USERNAME = '".$uname."' AND ACCESS_PASSWORD = '".$pword."') ||  (ACCESS_EMAIL = '".$uname."' AND ACCESS_PASSWORD = '".$pword."')";
 	$result = mysqli_query($dbcon,$sql);
-	var_dump($result);
+	
 	if(mysqli_num_rows($result) == 0) {
-		var_dump($result);
-		//header('location: ../index.php?error=1');
+	
+		header('location: signin.php?error=1');
 	}
 	else{
 		$row = mysqli_fetch_array($result);

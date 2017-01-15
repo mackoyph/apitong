@@ -1,66 +1,40 @@
 <?php 
 
-	$dbcon = mysqli_connect("localhost", "root", "walalang") or die("SERVER IS NOT AVAILABLE~".mysql_error());
-    mysqli_select_db($dbcon,"apitong") or die ("no data".mysql_error());
 
-    $sql = "SELECT * FROM contents";
-	$result = mysqli_query($dbcon,$sql);
+			ini_set("allow_url_fopen", 1);
+			$j_headermainname = file_get_contents('http://localhost/apitong/admin2/about/jsonserver/header-mainname');
+			$headermainname = json_decode($j_headermainname);
+			$headermainname = $headermainname->content;
 
-	if(mysqli_num_rows($result) != 0) {
-		while($row = mysqli_fetch_array($result)){
-			switch ($row[0]) {
-				case 1:
-					$headermainname = $row[2];
-					break;
-				case 2:
-					$headertagline = $row[2];
-					break;
-				case 3:
-					$footercontactnumber = $row[2];
-					break;
-				case 4:
-					$footertwitter = $row[2];
-					break;
-				case 5:
-					$footerfacebook = $row[2];
-					break;
-				case 7:
-					$footernote = $row[2];
-					break;
-				case 8:
-					$footercontactemail = $row[2];
-					break;
-				case 9:
-					$footercontactaddress = $row[2];
-					break;
-				case 10:
-					# code...
-					break;
-				case 11:
-					# code...
-					break;
-				case 12:
-					# code...
-					break;
-				case 13:
-					# code...
-					break;
-				case 14:
-					# code...
-					break;
-				case 15:
-					# code...
-					break;
-				case 16:
-					# code...
-					break;
-				case 17:
-					# code...
-					break;
-			}
-		}
+			$j_headertagline = file_get_contents('http://localhost/apitong/admin2/about/jsonserver/header-tagline');
+			$headertagline = json_decode($j_headertagline);
+			$headertagline = $headertagline->content;
 
-	}
+			$j_footercontactnumber = file_get_contents('http://localhost/apitong/admin2/about/jsonserver/footer-contactnumber');
+			$footercontactnumber = json_decode($j_footercontactnumber);
+			$footercontactnumber = $footercontactnumber->content;
 
+			$j_footercontactemail = file_get_contents('http://localhost/apitong/admin2/about/jsonserver/footer-contactemail');
+			$footercontactemail = json_decode($j_footercontactemail);
+			$footercontactemail = $footercontactemail->content;
 
+			$j_footercontactaddress = file_get_contents('http://localhost/apitong/admin2/about/jsonserver/footer-contactaddress');
+			$footercontactaddress = json_decode($j_footercontactaddress);
+			$footercontactaddress = $footercontactaddress->content;
+
+			$j_footertwitter = file_get_contents('http://localhost/apitong/admin2/about/jsonserver/footer-twitter');
+			$footertwitter = json_decode($j_footertwitter);
+			$footertwitter = $footertwitter->content;
+
+			$j_footerfacebook = file_get_contents('http://localhost/apitong/admin2/about/jsonserver/footer-facebook');
+			$footerfacebook = json_decode($j_footerfacebook);
+			$footerfacebook = $footerfacebook->content;
+
+			$j_footernote = file_get_contents('http://localhost/apitong/admin2/about/jsonserver/footer-note');
+			$footernote = json_decode($j_footernote);
+			$footernote = $footernote->content;
+
+			$j_homesecurity = file_get_contents('http://localhost/apitong/admin2/about/jsonserver/home-security');
+			$homesecurity = json_decode($j_homesecurity);
+			$homesecurity = $homesecurity->content;
  ?>
