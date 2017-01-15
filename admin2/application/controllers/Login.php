@@ -49,7 +49,6 @@ class Login extends CI_Controller {
 		 	//Go to private area
 			redirect('Login');
 	 	}
-
 	}
 
 	function check_database($password)

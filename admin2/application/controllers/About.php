@@ -56,7 +56,7 @@ class About extends CI_Controller {
 		$this->load->view('templates/footer', $data);
 	}
 
-	function edit_article($id)
+	function edit_article($id, $main=0)
 	{
 		if(!isset($id))
 		{
@@ -70,7 +70,14 @@ class About extends CI_Controller {
 		$data['jsvars'] = array( 'sidebar_active' => 'about-page');
 
 		//get article categories from db
-		$data['about_categories'] = $this->about_model->getAboutCategories();
+		if($main == 0)
+		{
+			$data['about_categories'] = $this->about_model->getAboutCategories();
+		}
+		elseif($main == 1)
+		{
+			$data['about_categories'] = $this->about_model->getAboutCategory();
+		}
 
 		//get article from db
 		$article = $this->about_model->getArticle($id);
@@ -118,6 +125,19 @@ class About extends CI_Controller {
 				$this->load->view('about/edit_article', $data);
 				$this->load->view('templates/footer', $data);
 			}
+		}
+	}
+
+	function jsonServer($item)
+	{
+		$this->debug("jsonserver", "ITEM = ". var_export($item, TRUE));
+		if(strcmp($item, "AboutPage") == 0)
+		{
+			$main_about = $this->about_model->getMainAboutArticle();
+			$this->debug('jsonserver', 'main_about=' . var_export($main_about, TRUE));
+			$json = json_encode($main_about);
+			$this->debug('jsonserver', 'json=' . var_export($json, TRUE));
+			echo $json;
 		}
 	}
 
