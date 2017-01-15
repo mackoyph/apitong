@@ -163,7 +163,7 @@ class About extends CI_Controller {
 		}
 		elseif(strcmp($item, "AllContents") == 0)
 		{
-			$contents = $this->content_model->getContents();
+			$contents = $this->content_model->getAllContents();
 			$data = array();
 			foreach($contents as $row)
 			{
@@ -174,7 +174,7 @@ class About extends CI_Controller {
 		}
 		elseif(strcmp($item, "Contents") == 0)
 		{
-			$contents = $this->content_model->getContents();
+			$contents = $this->content_model->getAllContents();
 			$json = json_encode($contents);
 			echo $json;
 		}
