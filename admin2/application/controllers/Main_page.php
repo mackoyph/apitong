@@ -43,13 +43,14 @@ class Main_page extends CI_Controller {
 		$this->check_loggedin();
 
 		$data = $this->setupData();
-		$data['jsvars'] = array( 'sidebar_active' => 'main-page');
+		
 
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 
 		if ($home === FALSE)
 		{
+			$data['jsvars'] = array( 'sidebar_active' => 'main-page');
 			$data['home'] = FALSE;
 			$this->debug('view', 'home is false, getting non-home content');
 			$content_descs = $this->content_model->getContentDescs();
@@ -57,6 +58,7 @@ class Main_page extends CI_Controller {
 		}
 		else
 		{
+			$data['jsvars'] = array( 'sidebar_active' => 'home-page');
 			$data['home'] = TRUE;
 			$this->debug('view', 'home is not false, getting home content');
 			$content_descs = $this->content_model->getContentDescs(TRUE);
