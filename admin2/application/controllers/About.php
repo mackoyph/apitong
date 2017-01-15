@@ -130,6 +130,7 @@ class About extends CI_Controller {
 
 	function jsonServer($item)
 	{
+		$this->load->model('content_model');
 		$this->debug("jsonserver", "ITEM = ". var_export($item, TRUE));
 		if(strcmp($item, "AboutPage") == 0)
 		{
@@ -139,11 +140,22 @@ class About extends CI_Controller {
 			$this->debug('jsonserver', 'json=' . var_export($json, TRUE));
 			echo $json;
 		}
+		elseif(strcmp($item, "footer-contact")==0)
+		{
+			$footerContact = $this->content_model->getFooterContact();
+			$json = json_encode($footerContact);
+			echo $json;
+		}
 		else
 		{
-			$this->load->model('content_model');
+			
 			$content = $this->content_model->getContent($item);
+			$content = $content[0]->content;
+			$response = array('content' => $content,
+			'content_desc' =>$item);
 			$this->debug('jsonserver', 'content=' . var_export($content, TRUE));
+			$json = json_encode($response);
+			echo $json;
 		}
 	}
 
