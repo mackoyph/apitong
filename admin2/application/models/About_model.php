@@ -34,7 +34,11 @@ Class About_model extends CI_Model
 		$query = $this->db->get();
 		return $query -> result();
 	}
-	
+
+	function deleteArticle($id)
+	{
+		return $this->db->delete('article', array('id' => $id));
+	}
 	function getAboutArticles()
 	{
 		$this->db->select('article.*, article_category.name, author.ACCESS_USERNAME AS `author_username`, editor.ACCESS_USERNAME AS `editor_username`')
