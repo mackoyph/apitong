@@ -25,7 +25,7 @@
 				Admin Accounts
 			</div>
 			<div class='box-body'>
-			<table id='admin-accounts-table' class='table table-bordered table-hover'>
+			<table id='admin-accounts-table' class='table dataTable table-bordered table-hover'>
 				<thead>
 					<tr>
 						<th>Last Name</th>
@@ -41,12 +41,12 @@
 					foreach($admin_accounts as $row)
 					{
 						echo "<tr class='clickable-row' data-href='" . base_url('admin_management/edit/' . $row->ACCESS_NO) . "'>";
-						echo "<td>" . $row->ACCESS_LASTNAME . "</td>";
-						echo "<td>" . $row->ACCESS_FIRSTNAME . "</td>";
-						echo "<td>" . $row->ACCESS_USERNAME . "</td>";
-						echo "<td>" . $row->ACCESS_EMAIL . "</td>";
-						echo "<td>" . $row->ACCESS_CONTACT . "</td>";
-						echo "<td>" . $row->ACCESS_ADDRESS . "</td>";
+						echo "<td>" . htmlentities($row->ACCESS_LASTNAME) . "</td>";
+						echo "<td>" . htmlentities($row->ACCESS_FIRSTNAME) . "</td>";
+						echo "<td>" . htmlentities($row->ACCESS_USERNAME) . "</td>";
+						echo "<td>" . htmlentities($row->ACCESS_EMAIL) . "</td>";
+						echo "<td>" . htmlentities($row->ACCESS_CONTACT) . "</td>";
+						echo "<td>" . htmlentities($row->ACCESS_ADDRESS) . "</td>";
 						echo "</tr>";
 						
 					}

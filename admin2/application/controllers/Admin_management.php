@@ -93,8 +93,8 @@ class Admin_management extends CI_Controller {
 			{
 				$data['errormsg'] = 'Could not update database.';
 				$this->load->view('templates/header', $data);
-			$this->load->view('admin/edit', $data);
-			$this->load->view('templates/footer', $data);
+				$this->load->view('admin/edit', $data);
+				$this->load->view('templates/footer', $data);
 			}
 		}
 		

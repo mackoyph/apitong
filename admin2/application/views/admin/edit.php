@@ -51,7 +51,7 @@
 				</div>
 				<div class='form-group'>
 					<label>Address</label>
-					<input class='form-control' type='text' id='address' name='address' min='0' required value="<?php echo $admin_account->ACCESS_ADDRESS; ?>">
+					<input class='form-control' type='text' id='address' name='address' min='0' required value="<?php echo htmlentities($admin_account->ACCESS_ADDRESS); ?>">
 				</div>
 				<button type='submit' class='btn btn-primary pull-right'>Save</button>
 				<?php echo form_close();?>

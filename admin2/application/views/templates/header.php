@@ -12,6 +12,8 @@
 	<link rel="stylesheet" href="<?php echo base_url('assets/font_awesome/css/font-awesome.min.css');?>">
 	<!-- Ionicons -->
 	<link rel="stylesheet" href="<?php echo base_url('assets/plugins/ionicons/ionicons.min.css');?>">
+
+	<link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables/dataTables.bootstrap.css');?>">
 	
 	<!-- AdminLTE Skins. We have chosen the skin-blue for this starter
 		page. However, you can choose any other skin. Make sure you
@@ -142,7 +144,7 @@
 		<li id='user-mgmt'><a href="<?php echo base_url('user_management');?>"><i class="fa fa-user-plus"></i> <span>User Management</span></a></li>
 		<li id='main-page'><a href="<?php echo base_url('main_page');?>"><i class="fa fa-desktop"></i> <span>Main Page</span></a></li>
 		<li id='home-page'><a href="<?php echo base_url('home_page');?>"><i class="fa fa-home"></i> <span>Home Page</span></a></li>
-		<li id='home'><a href="<?php echo base_url('main_page');?>"><i class="fa fa-question-circle"></i> <span>About</span></a></li>
+		<li id='about-page'><a href="<?php echo base_url('About');?>"><i class="fa fa-question-circle"></i> <span>About</span></a></li>
 		<li id='home'><a href="<?php echo base_url('main_page');?>"><i class="fa fa-picture-o"></i> <span>Gallery</span></a></li>
 		<li id='home'><a href="<?php echo base_url('main_page');?>"><i class="fa fa-cog"></i> <span>Settings</span></a></li>
 		</ul>
