@@ -161,6 +161,17 @@ class About extends CI_Controller {
 			$this->debug('jsonserver', 'json=' . var_export($json, TRUE));
 			echo $json;
 		}
+		elseif(strcmp($item, "AllContents") == 0)
+		{
+			$contents = $this->content_model->getContents();
+			$data = array();
+			foreach($contents as $row)
+			{
+				$data[$row->content_desc] = $row->content;
+			}
+			$json = json_encode($data);
+			echo $json;
+		}
 		elseif(strcmp($item, "Contents") == 0)
 		{
 			$contents = $this->content_model->getContents();
