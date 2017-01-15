@@ -28,7 +28,16 @@
 							echo "</div>";
 						}
 					?>
-					<?php echo form_open(base_url('main_page')); ?>
+					<?php 
+					if($home === FALSE)
+					{
+						echo form_open(base_url('main_page')); 
+					}
+					else
+					{
+						echo form_open(base_url('home_page'));
+					}
+					?>
 
 					<?php 
 
