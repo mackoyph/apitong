@@ -17,7 +17,7 @@
 			<div class='box box-successful'>
 				<div class='box-header'>
 					Main About 
-					<a href="#" class='btn btn-primary pull-right'>Edit</a>
+					<a href="<?php echo base_url('about/edit_article/' . $main_about->id . "/1");?>" class='btn btn-primary pull-right'>Edit</a>
 				</div>
 				<div class='box-body'>
 					<?php
