@@ -9,6 +9,17 @@ Class Admin extends CI_Model
 		return $query->result();
 	}
 	
+	function addAdminAccount($edit)
+	{
+		$dbparam = array();
+		$dbparam['ACCESS_FIRSTNAME'] = $edit['firstname'];
+		$dbparam['ACCESS_LASTNAME'] = $edit['lastname'];
+		$dbparam['ACCESS_USERNAME'] = $edit['username'];
+		$dbparam['ACCESS_CONTACT'] = $edit['contact'];
+		$dbparam['ACCESS_EMAIL'] = $edit['email'];
+		$dbparam['ACCESS_ADDRESS'] = $edit['address'];
+		return $this->db->insert('admin_access', $dbparam);
+	}
 	function getAdminAccount($admin_id)
 	{
 		$this->db->select('*')
@@ -16,6 +27,11 @@ Class Admin extends CI_Model
 				->where('ACCESS_NO', $admin_id);
 		$query = $this->db->get();
 		return $query->result();
+	}
+
+	function deleteAdminAccount()
+	{
+		
 	}
 	
 	function editAdminAccount($edit, $admin_id)

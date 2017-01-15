@@ -14,7 +14,7 @@
 	<h1>CRUD for admin accounts</h1>
 	<div class='row'>
 		<div class='col-md-12'>
-		<a href='#' class='btn btn-primary'>Add User</a>
+		<a href='<?php echo base_url('admin_management/add');?>' class='btn btn-primary'>Add User</a>
 		</div>
 	</div>
 	

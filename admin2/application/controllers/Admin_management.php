@@ -99,6 +99,54 @@ class Admin_management extends CI_Controller {
 		}
 		
 	}
+
+	function add()
+	{
+		$this->check_loggedin();
+		$data = $this->setupData();
+		$this->load->model('admin');
+
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('firstname', 'First Name', 'trim|required');
+		$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required');
+		$this->form_validation->set_rules('username', 'User Name', 'trim|required');
+		$this->form_validation->set_rules('contact', 'Contact #', 'trim|required');
+		$this->form_validation->set_rules('email', 'Email', 'trim|required');
+		$this->form_validation->set_rules('address', 'Address', 'trim|required');
+
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->debug('edit', 'form validation run == false, showing edit form');
+			$this->load->view('templates/header', $data);
+			$this->load->view('admin/add', $data);
+			$this->load->view('templates/footer', $data);
+		}
+		else
+		{
+			$edit = array();
+			$edit['firstname'] = $this->input->post('firstname');
+			$edit['lastname'] = $this->input->post('lastname');
+			$edit['username'] = $this->input->post('username');
+			$edit['email'] = $this->input->post('email');
+			$edit['contact'] = $this->input->post('contact');
+			$edit['address'] = $this->input->post('address');
+			
+			$dbresult = $this->admin->addAdminAccount($edit);
+			if($dbresult)
+			{
+				redirect('admin_management/crud');
+			}
+			else
+			{
+				$data['errormsg'] = 'Could not add record to database.';
+				$this->load->view('templates/header', $data);
+				$this->load->view('admin/add', $data);
+				$this->load->view('templates/footer', $data);
+			}
+		}
+
+	}
 	
 	private function check_loggedin() 
 	{
@@ -108,12 +156,5 @@ class Admin_management extends CI_Controller {
 			redirect('login');			
 		}
 	}
-
-	function logout()
-    {
-        $this->session->unset_userdata('logged_in');
-        session_destroy();
-        redirect('login');
-    }
 }
 ?>
