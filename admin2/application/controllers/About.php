@@ -81,9 +81,9 @@ class About extends CI_Controller {
 
 		$this->load->helper('form');
 		$this->load->library('form_validation');
-		$this->form_validation->set_rules('title', 'First Name', 'trim|required');
-		$this->form_validation->set_rules('editor1', 'First Name', 'trim|required');
-		$this->form_validation->set_rules('category', 'First Name', 'numeric|required');
+		$this->form_validation->set_rules('title', 'Title', 'trim|required');
+		$this->form_validation->set_rules('editor1', 'Article Text', 'trim|required');
+		$this->form_validation->set_rules('category', 'Category', 'numeric|required');
 
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -132,9 +132,9 @@ class About extends CI_Controller {
 		//load form helper
 		$this->load->helper('form');
 		$this->load->library('form_validation');
-		$this->form_validation->set_rules('title', 'First Name', 'trim|required');
-		$this->form_validation->set_rules('editor1', 'First Name', 'trim|required');
-		$this->form_validation->set_rules('category', 'First Name', 'numeric');
+		$this->form_validation->set_rules('title', 'Title', 'trim|required');
+		$this->form_validation->set_rules('editor1', 'Article Text', 'trim|required');
+		$this->form_validation->set_rules('category', 'Category', 'numeric|required');
 
 		if ($this->form_validation->run() == FALSE)
 		{
