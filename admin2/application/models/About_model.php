@@ -10,6 +10,22 @@ Class About_model extends CI_Model
 
 	private $About = 2;
 
+	function getArticle($id)
+	{
+		$this->db->select('*')
+				->from('article')
+				->where('id', $id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function updateArticle($id, $params)
+	{
+		$this->db->where('id', $id);
+		return $this->db->update('article', $params);
+
+	}
+
 	function getMainAboutArticle()
 	{
 		$this->db->select('*')
