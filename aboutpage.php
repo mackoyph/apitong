@@ -55,9 +55,14 @@
 
 		<?php 
 			ini_set("allow_url_fopen", 1);
-			$main_about = file_get_contents('http://localhost/apitong/admin2/about/jsonserver/AboutPage');
-			$obj = json_decode($main_about);
-			$obj = $obj[0];
+			$article = file_get_contents('http://localhost/apitong/admin2/about/articleserver/' . $_GET['articleid']);
+			$article = json_decode($article, TRUE);
+			$category_name = "About";
+			if(isset($_GET['category']))
+			{
+				$category_name = $_GET['category'];
+			}
+			//echo "ARTICLE=<br/>" . var_export($article, TRUE) . "<br/>";
 		?>
 
 		<div class="row">
@@ -65,13 +70,11 @@
 			<!-- Article main content -->
 			<article class="col-sm-8 maincontent">
 				<header class='page-header'>
-					<h1 class='page-title'><?php echo $obj->title; ?> </h1>
+					<h1 class='page-title'><?php echo $category_name . " -> " . $article['title'] ?> </h1>
 				</header>
 				
-
-				<center><p><img src="assets/images/family.jpg" width="500" ></p><center>
 				
-				<?php echo $obj->text;?>
+				<?php echo $article['text'];?>
 				
 			</article>
 			<!-- /Article -->
@@ -92,7 +95,6 @@
 						foreach($row['articles'] as $item)
 						{
 							echo "<li><a href='aboutpage.php?articleid=" . $item['article_id'] . "&category=" . $row['name'] . "'>" . $item['title'] . "</a></li>";
-							
 						}
 						echo "</ul>";
 					}

@@ -10,6 +10,11 @@ Class About_model extends CI_Model
 
 	private $About = 2;
 
+	function addAboutArticle($dbParams)
+	{
+		$this->debug('addAboutArticle', 'dbParams=' . var_export($dbParams, TRUE));
+		return $this->db->insert('article', $dbParams);
+	}
 	function getArticle($id)
 	{
 		$this->db->select('*')
@@ -23,7 +28,32 @@ Class About_model extends CI_Model
 	{
 		$this->db->where('id', $id);
 		return $this->db->update('article', $params);
+	}
+	
+	function deleteArticle($id)
+	{
+		return $this->db->delete('article', array('id' => $id));
+	}
 
+
+	function addCategory($params)
+	{
+		return $this->db->insert('article_category', $params);
+	}
+
+	function getCategory($id)
+	{
+		$this -> db -> select('*')
+					-> from('article_category')
+					-> where('id', $id);
+		$query = $this -> db -> get();
+		return $query -> result();
+	}
+
+	function updateCategory($dbParams)
+	{
+		$this->db->where('id', $dbParams['id']);
+		return $this->db->update('article_category', $dbParams);
 	}
 
 	function getMainAboutArticle()
@@ -35,10 +65,6 @@ Class About_model extends CI_Model
 		return $query -> result();
 	}
 
-	function deleteArticle($id)
-	{
-		return $this->db->delete('article', array('id' => $id));
-	}
 	function getAboutArticles()
 	{
 		$this->db->select('article.*, article_category.name, author.ACCESS_USERNAME AS `author_username`, editor.ACCESS_USERNAME AS `editor_username`')
@@ -53,11 +79,7 @@ Class About_model extends CI_Model
 		return $query->result();
 	}
 
-	function addAboutArticle($dbParams)
-	{
-		$this->debug('addAboutArticle', 'dbParams=' . var_export($dbParams, TRUE));
-		return $this->db->insert('article', $dbParams);
-	}
+	
 	
 	function getAboutCategories()
 	{
@@ -66,6 +88,23 @@ Class About_model extends CI_Model
 				->where('root_category', $this->About);
 		$query = $this->db->get();
 		return $query->result();
+	}
+
+	function getArticleCount($cat_id)
+	{
+		$this->db->select('*')
+				->from('article')
+				->where('category', $cat_id);
+		return $this->db->count_all_results();
+	}
+
+	function getArticlesByCategory($cat_id)
+	{
+		$this->db->select("id, title")
+				->from('article')
+				->where('category', $cat_id);
+		$query = $this->db->get();
+		return $query -> result();
 	}
 
 	function getAboutCategory() {

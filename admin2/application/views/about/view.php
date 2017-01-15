@@ -16,8 +16,9 @@
 		<div class='col-md-12'>
 			<div class='box box-successful'>
 				<div class='box-header'>
-					Main About 
-					<a href="<?php echo base_url('about/edit_article/' . $main_about->id . "/1");?>" class='btn btn-primary pull-right'>Edit</a>
+					<h3 class='box-title'>Main About </h3>
+					<br/>
+					<a href="<?php echo base_url('about/edit_article/' . $main_about->id . "/1");?>" class='btn btn-primary'>Edit About Us</a>
 				</div>
 				<div class='box-body'>
 					<?php
@@ -42,7 +43,8 @@
 		<div class='col-md-12'>
 			<div class='box box-primary'>
 				<div class='box-header'>
-					<h3>Articles</h3>
+					<h3 class='box-title'>Articles</h3>
+					<br/>
 					<a href="<?php echo base_url('about/new_article');?>" class='btn btn-primary'> New Article</a>
 				</div>
 				<div class='box-body'>
@@ -94,6 +96,44 @@
 		</div>
 	</div>
 	<!-- end row -->
+
+	<div class='row'>
+		<div class='col-md-12'>
+			<div class='box box-primary'>
+				<div class='box-header with-border'>
+					<h3 class='box-title'>About Us Page categories</h3>
+				</div>
+				<div class='box-body'>
+					<a href='<?php echo base_url('about/new_category');?>' class='btn-sm btn btn-primary'>Add Category</a>
+					<table id='categories-table' class='table table-bordered table-hover'>
+						<thead>
+							<tr>
+								<th>Category Name</th>
+								<th>Article Count</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+							foreach($about_categories as $row)
+							{
+								echo "<tr>";
+									echo "<td>" . $row->name;
+									echo "<a href='" . base_url('about/edit_category/'. $row->id) . "' class='pull-right btn btn-xs btn-warning'>Edit Name</a>";
+									
+									echo "</td>";
+									echo "<td>" . $category_count[$row->id] . "</td>";
+								echo '</tr>';
+							}
+
+							?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end row -->
+
 	<div class="modal fade" id='deleteArticleModal' tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -121,6 +161,7 @@ $(function() {
 	$('#article-table').DataTable({
 		"ordering":true
 	});
+	$('#categories-table').DataTable();
 
 	$('#deleteArticleModal').on('show.bs.modal', function (event) {
 		var button = $(event.relatedTarget) // Button that triggered the modal
