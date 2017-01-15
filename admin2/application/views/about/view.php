@@ -118,7 +118,7 @@
 							{
 								echo "<tr>";
 									echo "<td>" . $row->name;
-									echo "<a href='" . base_url('about/edit_category') . "' class='pull-right btn btn-xs btn-warning'>Edit Name</a>";
+									echo "<a href='" . base_url('about/edit_category/'. $row->id) . "' class='pull-right btn btn-xs btn-warning'>Edit Name</a>";
 									
 									echo "</td>";
 									echo "<td>" . $category_count[$row->id] . "</td>";
