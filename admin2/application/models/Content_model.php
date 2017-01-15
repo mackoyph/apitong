@@ -31,19 +31,45 @@ Class Content_model extends CI_Model
 		return $this->db->update_batch('contents', $data, 'content_desc');
 	}
 
-	function getContentDescs() {
+	function getContentDescs($home = FALSE) {
 		$this->db->select('content_desc')
+				->from('contents');
+		if ($home === FALSE)
+		{
+			$this->db->not_like('content_desc', 'home-', 'after');
+		}
+		else
+		{
+			$this->db->like('content_desc', 'home-', 'after');
+		}
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function getAllContents()
+	{
+		$this->db->select('*')
 				->from('contents');
 		$query = $this->db->get();
 		return $query->result();
 	}
-	function getContents()
+	function getContents($home = FALSE)
 	{
 		$this->db->select('*')
 			->from('contents');
+		if($home === FALSE)
+		{
+			$this->db->not_like('content_desc', 'home-', 'after');
+		}
+		else
+		{
+			$this->db->like('content_desc', 'home-', 'after');
+		}
+			
 		$query = $this->db->get();
 		return $query->result();
 	}
+
 
 	function getFooterContact() 
 	{
