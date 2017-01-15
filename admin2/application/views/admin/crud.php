@@ -11,7 +11,7 @@
 <!-- Main content -->
 <section class="content">
 	<!-- Your Page Content Here -->
-	<h1>CRUD for admin accounts</h1>
+	<h1>CRUD for user accounts</h1>
 	<div class='row'>
 		<div class='col-md-12'>
 		<a href='<?php echo base_url('admin_management/add');?>' class='btn btn-primary'>Add User</a>

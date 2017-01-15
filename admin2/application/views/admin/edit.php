@@ -16,7 +16,7 @@
 		<div class='col-md-9'>
 			<div class='box box-success'>
 				<div class='box-header with-border'>
-					<h4>Edit Admin Account</h4>
+					<h4>Edit User Account</h4>
 				</div>
 				<div class='box-body'>
 				<?php echo validation_errors("<div class='alert alert-danger'><h4><i class='icon fa fa-ban'></i>Alert!</h4>", "</div>"); ?>

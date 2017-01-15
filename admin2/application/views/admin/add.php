@@ -16,7 +16,7 @@
 		<div class='col-md-9'>
 			<div class='box box-success'>
 				<div class='box-header with-border'>
-					<h4>Add Administrator Account</h4>
+					<h4>Add User Account</h4>
 				</div>
 				<div class='box-body'>
 				<?php echo validation_errors("<div class='alert alert-danger'><h4><i class='icon fa fa-ban'></i>Alert!</h4>", "</div>"); ?>
@@ -44,6 +44,10 @@
 				<div class='form-group'>
 					<label>Email Name</label>
 					<input class='form-control' type='text' id='email' name='email' min='0' required >
+				</div>
+				<div class='form-group'>
+					<label>Password</label>
+					<input class='form-control' type='password' id='password' name='password' min='0' required >
 				</div>
 				<div class='form-group'>
 					<label>Contact</label>

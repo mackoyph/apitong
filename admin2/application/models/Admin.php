@@ -4,7 +4,7 @@ Class Admin extends CI_Model
 	function getAdminAccounts()
 	{
 		$this->db->select('ACCESS_NO, ACCESS_LASTNAME, ACCESS_FIRSTNAME, ACCESS_USERNAME, ACCESS_EMAIL, ACCESS_CONTACT, ACCESS_ADDRESS')
-				-> from('admin_access');
+				-> from('user_access');
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -18,12 +18,13 @@ Class Admin extends CI_Model
 		$dbparam['ACCESS_CONTACT'] = $edit['contact'];
 		$dbparam['ACCESS_EMAIL'] = $edit['email'];
 		$dbparam['ACCESS_ADDRESS'] = $edit['address'];
-		return $this->db->insert('admin_access', $dbparam);
+		$dbparam['ACCESS_PASSWORD'] = md5($edit['password']);
+		return $this->db->insert('user_access', $dbparam);
 	}
 	function getAdminAccount($admin_id)
 	{
 		$this->db->select('*')
-				->from('admin_access')
+				->from('user_access')
 				->where('ACCESS_NO', $admin_id);
 		$query = $this->db->get();
 		return $query->result();
@@ -44,7 +45,7 @@ Class Admin extends CI_Model
 		$dbparam['ACCESS_EMAIL'] = $edit['email'];
 		$dbparam['ACCESS_ADDRESS'] = $edit['address'];
 		$this->db->where('ACCESS_NO', $admin_id);
-		return $this->db->update('admin_access', $dbparam);
+		return $this->db->update('user_access', $dbparam);
 	}
 }
 ?>

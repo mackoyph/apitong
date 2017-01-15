@@ -132,16 +132,15 @@
 		<!-- Optionally, you can add icons to the links -->
 		<li id='home'><a href="<?php echo base_url('home');?>"><i class="fa fa-dashboard"></i> <span>Admin Home</span></a></li>
 		<li id='admin-mgmt' class='treeview'>		
-			<a href="<?php echo base_url('admin_management');?>"><i class="fa fa-users"></i><span>Admin Management</span>
+			<a href="<?php echo base_url('admin_management');?>"><i class="fa fa-users"></i><span>User Management</span>
 				<span class="pull-right-container">
 					<i class="fa fa-angle-left pull-right"></i>
 				</span>
 			</a>
 			<ul class='treeview-menu'>
-				<li><a href="<?php echo base_url('admin_management/crud');?>"><i class='fa fa-circle-o'></i>Add, Modify, Delete Admin</a></li>
+				<li><a href="<?php echo base_url('admin_management/crud');?>"><i class='fa fa-circle-o'></i>Add, Modify, Delete Users</a></li>
 			</ul>
 		</li>
-		<li id='user-mgmt'><a href="<?php echo base_url('user_management');?>"><i class="fa fa-user-plus"></i> <span>User Management</span></a></li>
 		<li id='main-page'><a href="<?php echo base_url('main_page');?>"><i class="fa fa-desktop"></i> <span>Main Page</span></a></li>
 		<li id='home-page'><a href="<?php echo base_url('home_page');?>"><i class="fa fa-home"></i> <span>Home Page</span></a></li>
 		<li id='about-page'><a href="<?php echo base_url('About');?>"><i class="fa fa-question-circle"></i> <span>About</span></a></li>
