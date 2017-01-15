@@ -47,6 +47,14 @@
 				</div>
 				<div class='box-body'>
 					table for articles goes here
+					<?php 
+						if ($errormsg !== NULL)
+						{
+							echo "<div class='alert alert-danger'><h4><i class='icon fa fa-ban'></i>Alert!</h4>";
+							echo $errormsg;
+							echo "</div>";
+						}
+					?>
 					<table id='article-table' class='table table-hover table-bordered'>
 						<thead>
 							<tr>
@@ -65,7 +73,8 @@
 								{
 									echo "<tr>";
 									echo "<td><h4>" . htmlentities($row->title) . "</h4>";
-									echo "<a href='" . base_url('about/edit_article/' . $row->id) . "' class='btn btn-sm pull-right btn-primary'>Edit</button>";
+									echo "<a href='" . base_url('about/edit_article/' . $row->id) . "' class='btn btn-xs pull-right btn-primary'>Edit</a>";
+									echo '<button data-articleid="' . $row->id . '" class="btn btn-warning btn-xs pull-left" data-toggle="modal" data-target="#deleteArticleModal" >Delete</button>';
 									echo "</td>";
 									echo "<td>" . htmlentities(substr($row->text, 0, 100) )."..." . "</td>";
 									echo "<td>" . htmlentities($row->author_username) . "</td>";
@@ -85,19 +94,19 @@
 		</div>
 	</div>
 	<!-- end row -->
-	<div class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal fade" id='deleteArticleModal' tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Modal title</h4>
+					<h4 class="modal-title">Delete Confirmation</h4>
 	  			</div>
 	  			<div class="modal-body">
-					<p>One fine body&hellip;</p>
+					<p>Are you sure you want to delete the article?</p>
 	  			</div>
 	  			<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+					<a id='deleteArticleLink' class="btn btn-warning">Delete</a>
 	  			</div>
 			</div><!-- /.modal-content -->
   		</div><!-- /.modal-dialog -->
@@ -112,5 +121,13 @@ $(function() {
 	$('#article-table').DataTable({
 		"ordering":true
 	});
+
+	$('#deleteArticleModal').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget) // Button that triggered the modal
+		var articleid = button.data('articleid');
+		console.log("article id=" + articleid);
+		$("#deleteArticleLink").attr('href', "<?php echo base_url('about/delete_article/');?>" + articleid);
+
+	})
 });
 </script>
