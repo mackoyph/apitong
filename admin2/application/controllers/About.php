@@ -51,6 +51,14 @@ class About extends CI_Controller {
 		$this->debug('index', 'articles=' . var_export($articles, TRUE));
 		$data['about_articles'] = $articles;
 
+		$data['about_categories'] = $this->about_model->getAboutCategories();
+		$count = array();
+		foreach($data['about_categories'] as $row)
+		{
+			$count[$row->id] = $this->about_model->getArticleCount($row->id);
+		}
+		$data['category_count'] = $count;
+
 		$this->load->view('templates/header', $data);
 		$this->load->view('about/view', $data);
 		$this->load->view('templates/footer', $data);
@@ -237,6 +245,52 @@ class About extends CI_Controller {
 			$this->load->view('templates/header', $data);
 			$this->load->view('about/view', $data);
 			$this->load->view('templates/footer', $data);
+		}
+	}
+
+	function new_category()
+	{
+		$this->debug('new_category', 'inside new_category method');
+		$this->debug('new_category', 'POST=' . var_export($this->input->post(), TRUE));
+		$this->check_loggedin();
+		$data = $this->setupData();
+		$data['jsvars'] = array( 'sidebar_active' => 'about-page');
+
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules('name', 'Category Name', 'trim|required');
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->debug('new_category', 'Form validation run = false, showing page');
+			$this->load->view('templates/header', $data);
+			$this->load->view('about/new_category', $data);
+			$this->load->view('templates/footer', $data);
+		}
+		else
+		{
+			$dbParams = array(
+				'name' => $this->input->post('name'),
+				'root_category' => 2,
+				'author_id' => $data['userid'],
+				'creation_date' =>  date("Y-m-d H:i:s"),
+				'last_edited_by' => $data['userid'],
+				'last_edit_date' => date("Y-m-d H:i:s")
+			);
+
+			$dbResult = $this->about_model->addCategory($dbParams);
+			if($dbResult)
+			{
+				redirect('about');
+			}
+			else
+			{
+				$data['errormsg'] = 'Could not add category to database.';
+				$this->load->view('templates/header', $data);
+				$this->load->view('about/new_category', $data);
+				$this->load->view('templates/footer', $data);
+			}
+
 		}
 	}
 
