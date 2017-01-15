@@ -81,6 +81,15 @@ Class About_model extends CI_Model
 		return $this->db->count_all_results();
 	}
 
+	function getArticlesByCategory($cat_id)
+	{
+		$this->db->select("id, title")
+				->from('article')
+				->where('category', $cat_id);
+		$query = $this->db->get();
+		return $query -> result();
+	}
+
 	function getAboutCategory() {
 		$this->db->select('*')
 				->from('article_category')
