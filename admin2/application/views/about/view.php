@@ -47,14 +47,16 @@
 				</div>
 				<div class='box-body'>
 					table for articles goes here
-					<table class='table dataTable table-hover table-bordered'>
+					<table id='article-table' class='table table-hover table-bordered'>
 						<thead>
 							<tr>
 								<td>Title</td>
 								<td>Text</td>
 								<td>Author</td>
 								<td>Category</td>
-								<td>Article Information</td>
+								<td>Creation Date</td>
+								<td>Last Editor</td>
+								<td>Last Edited on</td>
 							</tr>
 						</thead>
 						<tbody>
@@ -68,11 +70,10 @@
 									echo "<td>" . htmlentities(substr($row->text, 0, 100) )."..." . "</td>";
 									echo "<td>" . htmlentities($row->author_username) . "</td>";
 									echo "<td>" . htmlentities($row->name) . "</td>";
-									echo "<td>";
-										echo "Last edited: " . $row->last_edit_date;
-										echo "<br/>Last edited by: " . $row->editor_username; 
-										echo "<br/>Created on: " . $row->creation_date;
-									echo "</td>";
+									
+									echo "<td>" . htmlentities($row->creation_date) . "</td>";
+									echo "<td>" . htmlentities($row->editor_username) . "</td>";
+									echo "<td>" . htmlentities($row->last_edit_date) . "</td>";
 									echo "</tr>";
 
 								}
@@ -86,3 +87,13 @@
 	<!-- end row -->
 </section>
 <!-- /.content -->
+
+<script src="<?php echo base_url('assets/plugins/datatables/jquery.dataTables.min.js');?>"></script>
+<script src="<?php echo base_url('assets/plugins/datatables/dataTables.bootstrap.min.js');?>"></script>
+<script>
+$(function() {
+	$('#article-table').DataTable({
+		"ordering":true
+	});
+});
+</script>
