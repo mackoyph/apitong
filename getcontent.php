@@ -37,4 +37,24 @@
 			$j_homesecurity = file_get_contents('http://localhost/apitong/admin2/about/jsonserver/home-security');
 			$homesecurity = json_decode($j_homesecurity);
 			$homesecurity = $homesecurity->content;
+
+			$j_homedesign = file_get_contents('http://localhost/apitong/admin2/about/jsonserver/home-design');
+			$homedesign = json_decode($j_homedesign);
+			$homedesign = $homedesign->content;
+
+			$j_homelocated = file_get_contents('http://localhost/apitong/admin2/about/jsonserver/home-located');
+			$homelocated = json_decode($j_homelocated);
+			$homelocated = $homelocated->content;
+
+			$j_homemoney = file_get_contents('http://localhost/apitong/admin2/about/jsonserver/home-money');
+			$homemoney = json_decode($j_homemoney);
+			$homemoney = $homemoney->content;
+
+			$j_homeheader = file_get_contents('http://localhost/apitong/admin2/about/jsonserver/home-header');
+			$homeheader = json_decode($j_homeheader);
+			$homeheader = $homeheader->content;
+
+			$j_hometagline = file_get_contents('http://localhost/apitong/admin2/about/jsonserver/home-tagline');
+			$hometagline = json_decode($j_hometagline);
+			$hometagline = $hometagline->content;
  ?>

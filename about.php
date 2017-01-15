@@ -26,6 +26,7 @@
 </head>
 
 <body>
+<?php include 'getcontent.php'; ?>
 	<!-- Fixed navbar -->
 	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
 		<div class="container">
@@ -116,32 +117,30 @@
 					<div class="col-md-3 widget">
 						<h3 class="widget-title">Contact</h3>
 						<div class="widget-body">
-							<p>091565812345<br>
-								<a href="mailto:#">sampleapitongvillage@gmail.com</a><br>
+							<p><?php echo $footercontactnumber ?><br>
+								<a href="mailto:#"><?php echo $footercontactemail ?></a><br>
 								<br>
-								Ph. 4A Apitong Drive. Sto. Niño Meycauayan Bulacan
+								<?php echo $footercontactaddress ?>
 							</p>	
 						</div>
 					</div>
 
 					<div class="col-md-3 widget">
-						<h3 class="widget-title">Follow me</h3>
+						<h3 class="widget-title">Follow us</h3>
 						<div class="widget-body">
-							<p class="follow-me-icons clearfix">
-								<a href=""><i class="fa fa-twitter fa-2"></i></a>
-								<a href=""><i class="fa fa-dribbble fa-2"></i></a>
-								<a href=""><i class="fa fa-github fa-2"></i></a>
-								<a href=""><i class="fa fa-facebook fa-2"></i></a>
+							<p class="follow-me-icons">
+								<a href="<?php echo $footertwitter ?>"><i class="fa fa-twitter fa-2"></i></a>
+								<a href="<?php echo $footerfacebook ?>"><i class="fa fa-facebook fa-2"></i></a>
 							</p>	
 						</div>
 					</div>
 
 					<div class="col-md-6 widget">
-						<h3 class="widget-title">
-Beautiful, quality homes at an affordable price</h3>
+						<h3 class="widget-title">Beautiful, quality homes at an affordable price</h3>
 						<div class="widget-body">
-							<p>has created an immense selection of affordable yet quality houses within a masterplanned community where everything that you need is close to your home.</p>
-							</div>
+							<p><?php echo $footernote ?></p>
+							
+						</div>
 					</div>
 
 				</div> <!-- /row of widgets -->
@@ -155,7 +154,7 @@ Beautiful, quality homes at an affordable price</h3>
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="simplenav">
-								<a href="index.php">APITONG COURT RESIDENCE</a> | 
+								APITONG COURT RESIDENCE
 								
 							</p>
 						</div>
@@ -172,7 +171,9 @@ Beautiful, quality homes at an affordable price</h3>
 				</div> <!-- /row of widgets -->
 			</div>
 		</div>
+
 	</footer>	
+		
 		
 
 
