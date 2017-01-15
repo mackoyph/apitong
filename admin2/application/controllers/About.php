@@ -113,7 +113,10 @@ class About extends CI_Controller {
 			}
 			else 
 			{
-
+				$data['errormsg'] = 'Could not add article to database.';
+				$this->load->view('templates/header', $data);
+				$this->load->view('about/edit_article', $data);
+				$this->load->view('templates/footer', $data);
 			}
 		}
 	}
