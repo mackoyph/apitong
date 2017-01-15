@@ -382,15 +382,38 @@ class About extends CI_Controller {
 		$data = $this->setupData();
 		$data['jsvars'] = $data['jsvars'] = array( 'sidebar_active' => 'about-page');
 
+		$data['category'] = $this->about_model->getCategory($category_id)[0];
+		$this->debug('edit_category', 'category=' . var_export($data['category'], TRUE));
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('name', 'Category Name', 'trim|required');
 		if ($this->form_validation->run() == FALSE)
 		{
+			$this->debug('edit_category', 'form validation run = FALSE, showing page instead');
+			$this->load->view('templates/header', $data);
+			$this->load->view('about/edit_category', $data);
+			$this->load->view('templates/footer', $data);
 		}
 		else
 		{
-
+			$this->debug('edit_category', 'will try to save to database');
+			$dbParams = array(
+				'id' => $category_id,
+				'name' => $this->input->post('name')
+			);
+			$dbResult = $this->about_model->updateCategory($dbParams);
+			if($dbResult)
+			{
+				$this->debug('edit_category', 'db operation to edit category name successful');
+				redirect('about');
+			}
+			else
+			{
+				$data['errormsg'] = 'Could not add category to database.';
+				$this->load->view('templates/header', $data);
+				$this->load->view('about/edit_category', $data);
+				$this->load->view('templates/footer', $data);
+			}
 		}
 	}
 }
