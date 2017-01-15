@@ -29,6 +29,7 @@ class About extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('about_model');
+		date_default_timezone_set("Asia/Manila");
 	}
 	
 	function index()
