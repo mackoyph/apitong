@@ -82,10 +82,19 @@
 				<div class="widget">
 					<?php
 					$categories = file_get_contents('http://localhost/apitong/admin2/about/jsonserver/AboutPageCategories');
-					$categories = json_decode($categories);
+					$categories = json_decode($categories, TRUE);
+					//echo "about page categories= <br/>" . var_export($categories, TRUE);
 					foreach($categories as $row)
 					{
-						echo "<h4>" . $row->name . "</h4>";
+						//echo "ROW = <br/>" . var_export($row, TRUE) . "<br/>";
+						echo "<h4>" . $row['name'] . "</h4>";
+						echo "<ul class='list-unstyled list-spaces'>";
+						foreach($row['articles'] as $item)
+						{
+							echo "<li><a href='aboutpage.php?articleid=" . $item['article_id'] . "&category=" . $row['name'] . "'>" . $item['title'] . "</a></li>";
+							
+						}
+						echo "</ul>";
 					}
 					?>
 					<!--
