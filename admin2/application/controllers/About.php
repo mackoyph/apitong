@@ -128,6 +128,26 @@ class About extends CI_Controller {
 		}
 	}
 
+	function articleserver($id)
+	{
+		$article = $this->about_model->getArticle($id);
+		$response;
+		if(count($article) == 0)
+		{
+			$response = array(
+				'title' => 'no such article exists',
+				'text'=> 'none',
+				'author' =>'none'
+			);
+		}
+		else
+		{
+			$response = $article[0];
+		}
+		$json = json_encode($response);
+		echo $json;
+	}
+
 	function jsonServer($item)
 	{
 		$this->load->model('content_model');
@@ -144,6 +164,21 @@ class About extends CI_Controller {
 		{
 			$footerContact = $this->content_model->getFooterContact();
 			$json = json_encode($footerContact);
+			echo $json;
+		}
+		elseif(strcmp($item, "AboutPageCategories") == 0)
+		{
+			$about_cats = $this->about_model->getAboutCategories();
+			$categories = array();
+			$length = count($about_cats);
+			for($i = 0; $i < $length; $i++)
+			{
+				$categories[$i] = array(
+					'name' => $about_cats[$i]->name,
+					'id' => $about_cats[$i]->id
+				);
+			}
+			$json = json_encode($categories);
 			echo $json;
 		}
 		else
