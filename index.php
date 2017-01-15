@@ -96,11 +96,9 @@ function carousel() {
 	
 	<div class="container text-center">
 		<br> <br>
-		<h2 class="thin">Live at the heart of Meycauayan City. </h2>
+		<h2 class="thin"><?php echo $homeheader ?> </h2>
 		<p class="text-muted">
-			Apitong Court Residences is conveniently located near schools, 
-			transport terminals, commercial establishments, place of worship,
-			industrial parks and government offices.
+			<?php echo $hometagline ?>
 		</p>
 	</div>
 	<!-- /Intro-->
@@ -115,25 +113,23 @@ function carousel() {
 				<div class="col-md-3 col-sm-6 highlight">
 					<div class="h-caption"><h4><i class="fa fa-cogs fa-5"></i>SECURITY</h4></div>
 					<div class="h-body text-center">
-						<p>Apitong guarantees its homeowners' safety with exquisitely designed guarded entrance gates equipped with CCTV, as well as high perimeter fences, and round-the-clock roving security guards.  These security features allow families to feel safe in their own homes – as should always be the case – and enjoy worry-free lives every single day, making their homes and community safe havens and comfortable escapes from the stresses and fears of city living.</div>
+						<p><?php echo $homesecurity ?></p></div>
 				</div>
 				<div class="col-md-3 col-sm-6 highlight">
 					<div class="h-caption"><h4><i class="fa fa-flash fa-5"></i>INTERIOR AND EXTERIOR DESIGN</h4></div>
 					<div class="h-body text-center">
-						<p>Apitong Village is designed by an excellent and reputable developer, each house is set in a breathtaking tropical modern aesthetic that provides optimal natural ventilation, light, and shade designed by Architect Dan Rainier Calingo.
-A well-lit and designed guardhouse and front entrance, complements an organically formed lustrous landscape that capitalizes on the uniqueness of a tropical plants. 
+						<p><?php echo $homedesign ?> </p>
 	</div>
 				</div>
 				<div class="col-md-3 col-sm-6 highlight">
 					<div class="h-caption"><h4><i class="fa fa-heart fa-5"></i>LOCATED NEAR</h4></div>
 					<div class="h-body text-center">
-						<p>Apitong Village is strategically situated near schools, hospitals and medical centers, places of worship, shopping malls and leisure centers, government institutions, transportation hubs and main access roads. A proof that we value your family’s health, future and bond. Because we believe that a village starts with a family.</div>
+						<p><?php echo $homelocated ?> </p></div>
 				</div>
 				<div class="col-md-3 col-sm-6 highlight">
 					<div class="h-caption"><h4><i class="fa fa-smile-o fa-5"></i>AFFORDABILITY & VALUE FOR MONEY</h4></div>
 					<div class="h-body text-center">
-						<p>Apitong Village situated at the very heart of Sto. Nino, Meycauayan, Bulacan, aims to provide value to your hard earned money. We promise to give you more than what you are paying for, the quality of the materials to be used in building your home, the community 
-						that surrounds the village, and our heartfelt commitment in making sure that you get a home, not just a house.</div>
+						<p><?php echo $homemoney ?> </p>.</div>
 				</div>
 			</div> <!-- /row  -->
 		
