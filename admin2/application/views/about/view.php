@@ -96,6 +96,44 @@
 		</div>
 	</div>
 	<!-- end row -->
+
+	<div class='row'>
+		<div class='col-md-12'>
+			<div class='box box-primary'>
+				<div class='box-header with-border'>
+					<h3 class='box-title'>About Us Page categories</h3>
+				</div>
+				<div class='box-body'>
+					<a href='<?php echo base_url('about/new_category');?>' class='btn-sm btn btn-primary'>Add Category</a>
+					<table id='categories-table' class='table table-bordered table-hover'>
+						<thead>
+							<tr>
+								<th>Category Name</th>
+								<th>Article Count</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+							foreach($about_categories as $row)
+							{
+								echo "<tr>";
+									echo "<td>" . $row->name;
+									echo "<a href='" . base_url('about/edit_category') . "' class='pull-right btn btn-xs btn-warning'>Edit Name</a>";
+									
+									echo "</td>";
+									echo "<td>" . $category_count[$row->id] . "</td>";
+								echo '</tr>';
+							}
+
+							?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end row -->
+
 	<div class="modal fade" id='deleteArticleModal' tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -123,6 +161,7 @@ $(function() {
 	$('#article-table').DataTable({
 		"ordering":true
 	});
+	$('#categories-table').DataTable();
 
 	$('#deleteArticleModal').on('show.bs.modal', function (event) {
 		var button = $(event.relatedTarget) // Button that triggered the modal
