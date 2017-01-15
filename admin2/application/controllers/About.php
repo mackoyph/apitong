@@ -139,6 +139,12 @@ class About extends CI_Controller {
 			$this->debug('jsonserver', 'json=' . var_export($json, TRUE));
 			echo $json;
 		}
+		else
+		{
+			$this->load->model('content_model');
+			$content = $this->content_model->getContent($item);
+			$this->debug('jsonserver', 'content=' . var_export($content, TRUE));
+		}
 	}
 
 	function new_article()
