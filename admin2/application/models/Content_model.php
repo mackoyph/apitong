@@ -17,6 +17,26 @@ Class Content_model extends CI_Model
 		return $query->result();
 	}
 
+	function updateContents($params)
+	{
+		$data = array();
+		foreach($params as $key=>$value) 
+		{
+			$temp = array(
+				'content_desc' => $key,
+				'content' => $value
+			);
+			array_push($data, $temp);
+		}
+		return $this->db->update_batch('contents', $data, 'content_desc');
+	}
+
+	function getContentDescs() {
+		$this->db->select('content_desc')
+				->from('contents');
+		$query = $this->db->get();
+		return $query->result();
+	}
 	function getContents()
 	{
 		$this->db->select('*')
