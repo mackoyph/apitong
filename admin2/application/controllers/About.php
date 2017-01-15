@@ -29,6 +29,7 @@ class About extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('about_model');
+		$this->load->model('content_model');
 		date_default_timezone_set("Asia/Manila");
 	}
 	
@@ -42,12 +43,11 @@ class About extends CI_Controller {
 
 		if(count($main_about_article) != 0)
 		{
-			$data['main_about'] = $main_about_article[0];	
+			$data['main_about'] = $main_about_article[0];
+			$this->debug('index', 'main_about=' . var_export($data['main_about'], TRUE));	
 		}
-
-		$this->debug('index', 'main_about=' . var_export($data['main_about'], TRUE));
+		
 		$articles = $this->about_model->getAboutArticles();
-
 		$this->debug('index', 'articles=' . var_export($articles, TRUE));
 		$data['about_articles'] = $articles;
 
@@ -62,6 +62,174 @@ class About extends CI_Controller {
 		$this->load->view('templates/header', $data);
 		$this->load->view('about/view', $data);
 		$this->load->view('templates/footer', $data);
+	}
+
+	function articleserver($id)
+	{
+		$this->debug('articleserver', '$id=' . var_export($id, TRUE));
+		$article = $this->about_model->getArticle($id);
+		$response;
+		if(count($article) == 0)
+		{
+			$response = array(
+				'title' => 'no such article exists',
+				'text'=> 'none',
+				'author' =>'none'				
+			);
+		}
+		else
+		{
+			$response = $article[0];
+		}
+		$this->debug("articleserver", 'response' . var_export($response, TRUE));
+		$json = json_encode($response);
+		echo $json;
+	}
+
+	function jsonServer($item)
+	{		
+		$this->debug("jsonserver", "ITEM = ". var_export($item, TRUE));
+		if(strcmp($item, "AboutPage") == 0)
+		{
+			$main_about = $this->about_model->getMainAboutArticle();
+			$this->debug('jsonserver', 'main_about=' . var_export($main_about, TRUE));
+			$json = json_encode($main_about);
+			echo $json;
+		}
+		elseif(strcmp($item, "AllContents") == 0)
+		{
+			$contents = $this->content_model->getAllContents();
+			$data = array();
+			foreach($contents as $row)
+			{
+				$data[$row->content_desc] = $row->content;
+			}
+			$this->debug('jsonServer' , 'AllContents = ' . var_export($data, TRUE));
+			$json = json_encode($data);
+			echo $json;
+		}
+		elseif(strcmp($item, "Contents") == 0)
+		{
+			$contents = $this->content_model->getAllContents();
+			$json = json_encode($contents);
+			echo $json;
+		}
+		elseif(strcmp($item, "footer-contact")==0)
+		{
+			$footerContact = $this->content_model->getFooterContact();
+			$json = json_encode($footerContact);
+			echo $json;
+		}
+		elseif(strcmp($item, "AboutPageArticles") == 0)
+		{
+			$about_articles = $this->about_model->getAboutArticles();
+			$json = json_encode($about_articles);
+			echo $json;
+		}
+		elseif(strcmp($item, "AboutPageCategories") == 0)
+		{
+			$about_cats = $this->about_model->getAboutCategories();
+			$categories = array();
+			$length = count($about_cats);
+			for($i = 0; $i < $length; $i++)
+			{
+				$articles = $this->about_model->getArticlesByCategory($about_cats[$i]->id);
+				$article_array = array();
+				foreach($articles as $row)
+				{
+					$temp = array();
+					$temp['article_id'] = $row->id;
+					$temp['title'] = $row->title;
+					array_push($article_array, $temp);
+				}
+				$categories[$i] = array(
+					'name' => $about_cats[$i]->name,
+					'id' => $about_cats[$i]->id,
+					'articles' => $article_array
+				);
+			}
+			$json = json_encode($categories);
+			echo $json;
+		}
+		else
+		{
+			
+			$content = $this->content_model->getContent($item);
+			$content = $content[0]->content;
+			$response = array('content' => $content,
+			'content_desc' =>$item);
+			$this->debug('jsonserver', 'content=' . var_export($content, TRUE));
+			$json = json_encode($response);
+			echo $json;
+		}
+	}
+
+	function new_article()
+	{
+		$this->debug('new_article', "POST Variables=" . var_export($this->input->post(), TRUE));
+		$this->check_loggedin();
+		$data = $this->setupData();
+		$data['jsvars'] = array( 'sidebar_active' => 'about-page');
+
+		$this->debug('new_article' , 'php timezone=' . date_default_timezone_get());
+		$data['about_categories'] = $this->about_model->getAboutCategories();
+
+		//load form validation
+		//load form helper
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('title', 'Title', 'trim|required');
+		$this->form_validation->set_rules('editor1', 'Article Text', 'trim|required');
+		$this->form_validation->set_rules('category', 'Category', 'numeric|required');
+
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->debug('new_article', 'form validation run = false, redirecting to new article page again');
+			$this->load->view('templates/header', $data);
+			$this->load->view('about/new_article', $data);
+			$this->load->view('templates/footer', $data);
+		}
+		else
+		{
+			//save to database
+			$this->debug('new_article', 'Title=' . var_export($this->input->post('title'), TRUE));
+			$this->debug('new_article', 'text=' . var_export($this->input->post('editor1'), TRUE));
+			$this->debug('new_article', 'category=' . var_export($this->input->post('category'), TRUE));
+			$title = $this->input->post('title');
+			$text = $this->input->post('editor1');
+			$category = $this->input->post('category');
+			$creation_date = date("Y-m-d H:i:s");
+			$edit_date = $creation_date;
+			$author = $data['userid'];
+			$editor = $author;
+
+			$dbParams = array(
+				'author_id' => $author,
+				'last_edited_by' => $editor,
+				'creation_date' =>$creation_date,
+				'last_edit_date' => $edit_date,
+				'title' => $title,
+				'text' => $text,
+				'category' => $category
+			);
+
+			$dbResult = $this->about_model->addAboutArticle($dbParams);
+			if ($dbResult)
+			{
+				$this->debug('new_article', 'article added to databasse, redirecting to about');
+				redirect('about');
+			}
+			else
+			{
+				$data['errormsg'] = 'Could not add article to database.';
+				$this->load->view('templates/header', $data);
+				$this->load->view('about/new_article', $data);
+				$this->load->view('templates/footer', $data);
+			}
+			
+			//redirect back to admin panel for about page
+		}
+
 	}
 
 	function edit_article($id, $main=0)
@@ -136,106 +304,6 @@ class About extends CI_Controller {
 		}
 	}
 
-	function articleserver($id)
-	{
-		$article = $this->about_model->getArticle($id);
-		$response;
-		if(count($article) == 0)
-		{
-			$response = array(
-				'title' => 'no such article exists',
-				'text'=> 'none',
-				'author' =>'none'
-				
-			);
-		}
-		else
-		{
-			$response = $article[0];
-		}
-		$json = json_encode($response);
-		echo $json;
-	}
-
-	function jsonServer($item)
-	{
-		$this->load->model('content_model');
-		$this->debug("jsonserver", "ITEM = ". var_export($item, TRUE));
-		if(strcmp($item, "AboutPage") == 0)
-		{
-			$main_about = $this->about_model->getMainAboutArticle();
-			$this->debug('jsonserver', 'main_about=' . var_export($main_about, TRUE));
-			$json = json_encode($main_about);
-			$this->debug('jsonserver', 'json=' . var_export($json, TRUE));
-			echo $json;
-		}
-		elseif(strcmp($item, "AllContents") == 0)
-		{
-			$contents = $this->content_model->getAllContents();
-			$data = array();
-			foreach($contents as $row)
-			{
-				$data[$row->content_desc] = $row->content;
-			}
-			$json = json_encode($data);
-			echo $json;
-		}
-		elseif(strcmp($item, "Contents") == 0)
-		{
-			$contents = $this->content_model->getAllContents();
-			$json = json_encode($contents);
-			echo $json;
-		}
-		elseif(strcmp($item, "footer-contact")==0)
-		{
-			$footerContact = $this->content_model->getFooterContact();
-			$json = json_encode($footerContact);
-			echo $json;
-		}
-		elseif(strcmp($item, "AboutPageArticles") == 0)
-		{
-			$about_articles = $this->about_model->getAboutArticles();
-			$json = json_encode($about_articles);
-			echo $json;
-		}
-		elseif(strcmp($item, "AboutPageCategories") == 0)
-		{
-			$about_cats = $this->about_model->getAboutCategories();
-			$categories = array();
-			$length = count($about_cats);
-			for($i = 0; $i < $length; $i++)
-			{
-				$articles = $this->about_model->getArticlesByCategory($about_cats[$i]->id);
-				$article_array = array();
-				foreach($articles as $row)
-				{
-					$temp = array();
-					$temp['article_id'] = $row->id;
-					$temp['title'] = $row->title;
-					array_push($article_array, $temp);
-				}
-				$categories[$i] = array(
-					'name' => $about_cats[$i]->name,
-					'id' => $about_cats[$i]->id,
-					'articles' => $article_array
-				);
-			}
-			$json = json_encode($categories);
-			echo $json;
-		}
-		else
-		{
-			
-			$content = $this->content_model->getContent($item);
-			$content = $content[0]->content;
-			$response = array('content' => $content,
-			'content_desc' =>$item);
-			$this->debug('jsonserver', 'content=' . var_export($content, TRUE));
-			$json = json_encode($response);
-			echo $json;
-		}
-	}
-
 	function delete_article($id = FALSE)
 	{
 		if ($id == FALSE) {
@@ -304,72 +372,26 @@ class About extends CI_Controller {
 		}
 	}
 
-	function new_article()
+	function edit_category($category_id = FALSE)
 	{
-		$this->debug('new_article', "POST Variables=" . var_export($this->input->post(), TRUE));
+		if ($category_id === FALSE)
+		{
+			redirect('about');
+		}
 		$this->check_loggedin();
 		$data = $this->setupData();
-		$data['jsvars'] = array( 'sidebar_active' => 'about-page');
+		$data['jsvars'] = $data['jsvars'] = array( 'sidebar_active' => 'about-page');
 
-		$this->debug('new_article' , 'php timezone=' . date_default_timezone_get());
-		$data['about_categories'] = $this->about_model->getAboutCategories();
-
-		//load form validation
-		//load form helper
 		$this->load->helper('form');
 		$this->load->library('form_validation');
-		$this->form_validation->set_rules('title', 'Title', 'trim|required');
-		$this->form_validation->set_rules('editor1', 'Article Text', 'trim|required');
-		$this->form_validation->set_rules('category', 'Category', 'numeric|required');
-
+		$this->form_validation->set_rules('name', 'Category Name', 'trim|required');
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->debug('new_article', 'form validation run = false, redirecting to new article page again');
-			$this->load->view('templates/header', $data);
-			$this->load->view('about/new_article', $data);
-			$this->load->view('templates/footer', $data);
 		}
 		else
 		{
-			//save to database
-			$this->debug('new_article', 'Title=' . var_export($this->input->post('title'), TRUE));
-			$this->debug('new_article', 'text=' . var_export($this->input->post('editor1'), TRUE));
-			$this->debug('new_article', 'category=' . var_export($this->input->post('category'), TRUE));
-			$title = $this->input->post('title');
-			$text = $this->input->post('editor1');
-			$category = $this->input->post('category');
-			$creation_date = date("Y-m-d H:i:s");
-			$edit_date = $creation_date;
-			$author = $data['userid'];
-			$editor = $author;
 
-			$dbParams = array(
-				'author_id' => $author,
-				'last_edited_by' => $editor,
-				'creation_date' =>$creation_date,
-				'last_edit_date' => $edit_date,
-				'title' => $title,
-				'text' => $text,
-				'category' => $category
-			);
-
-			$dbResult = $this->about_model->addAboutArticle($dbParams);
-			if ($dbResult)
-			{
-				$this->debug('new_article', 'article added to databasse, redirecting to about');
-				redirect('about');
-			}
-			else
-			{
-				$data['errormsg'] = 'Could not add article to database.';
-				$this->load->view('templates/header', $data);
-				$this->load->view('about/new_article', $data);
-				$this->load->view('templates/footer', $data);
-			}
-			
-			//redirect back to admin panel for about page
 		}
-
 	}
 }
 ?>
