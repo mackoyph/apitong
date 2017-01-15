@@ -32,6 +32,12 @@ Class About_model extends CI_Model
 		$query = $this->db->get();
 		return $query->result();
 	}
+
+	function addAboutArticle($dbParams)
+	{
+		$this->debug('addAboutArticle', 'dbParams=' . var_export($dbParams, TRUE));
+		return $this->db->insert('article', $dbParams);
+	}
 	
 	function getAboutCategories()
 	{
