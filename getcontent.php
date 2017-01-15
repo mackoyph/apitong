@@ -69,7 +69,7 @@
 			//$j_homeheader = file_get_contents('http://localhost/apitong/admin2/about/jsonserver/home-header');
 			//$homeheader = json_decode($j_homeheader);
 			//$homeheader = $homeheader->content;
-			$homeheader = $content['home-header'];
+			$homeheader = $contents['home-header'];
 
 			//$j_hometagline = file_get_contents('http://localhost/apitong/admin2/about/jsonserver/home-tagline');
 			//$hometagline = json_decode($j_hometagline);
