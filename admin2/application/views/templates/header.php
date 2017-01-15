@@ -12,6 +12,8 @@
 	<link rel="stylesheet" href="<?php echo base_url('assets/font_awesome/css/font-awesome.min.css');?>">
 	<!-- Ionicons -->
 	<link rel="stylesheet" href="<?php echo base_url('assets/plugins/ionicons/ionicons.min.css');?>">
+
+	<link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables/dataTables.bootstrap.css');?>">
 	
 	<!-- AdminLTE Skins. We have chosen the skin-blue for this starter
 		page. However, you can choose any other skin. Make sure you
