@@ -16,8 +16,9 @@
 		<div class='col-md-12'>
 			<div class='box box-successful'>
 				<div class='box-header'>
-					Main About 
-					<a href="<?php echo base_url('about/edit_article/' . $main_about->id . "/1");?>" class='btn btn-primary pull-right'>Edit</a>
+					<h3 class='box-title'>Main About </h3>
+					<br/>
+					<a href="<?php echo base_url('about/edit_article/' . $main_about->id . "/1");?>" class='btn btn-primary'>Edit About Us</a>
 				</div>
 				<div class='box-body'>
 					<?php
@@ -42,7 +43,8 @@
 		<div class='col-md-12'>
 			<div class='box box-primary'>
 				<div class='box-header'>
-					<h3>Articles</h3>
+					<h3 class='box-title'>Articles</h3>
+					<br/>
 					<a href="<?php echo base_url('about/new_article');?>" class='btn btn-primary'> New Article</a>
 				</div>
 				<div class='box-body'>
