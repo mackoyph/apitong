@@ -205,9 +205,19 @@ class About extends CI_Controller {
 			$length = count($about_cats);
 			for($i = 0; $i < $length; $i++)
 			{
+				$articles = $this->about_model->getArticlesByCategory($about_cats[$i]->id);
+				$article_array = array();
+				foreach($articles as $row)
+				{
+					$temp = array();
+					$temp['article_id'] = $row->id;
+					$temp['title'] = $row->title;
+					array_push($article_array, $temp);
+				}
 				$categories[$i] = array(
 					'name' => $about_cats[$i]->name,
-					'id' => $about_cats[$i]->id
+					'id' => $about_cats[$i]->id,
+					'articles' => $article_array
 				);
 			}
 			$json = json_encode($categories);
