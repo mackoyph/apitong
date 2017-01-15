@@ -62,7 +62,9 @@
 								foreach($about_articles as $row)
 								{
 									echo "<tr>";
-									echo "<td><h4>" . htmlentities($row->title) . "</h4></td>";
+									echo "<td><h4>" . htmlentities($row->title) . "</h4>";
+									echo "<a href='" . base_url('about/edit_article/' . $row->id) . "' class='btn btn-sm pull-right btn-primary'>Edit</button>";
+									echo "</td>";
 									echo "<td>" . htmlentities(substr($row->text, 0, 100) )."..." . "</td>";
 									echo "<td>" . htmlentities($row->author_username) . "</td>";
 									echo "<td>" . htmlentities($row->name) . "</td>";
