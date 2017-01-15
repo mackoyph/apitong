@@ -79,6 +79,15 @@
 			<aside class="col-sm-4 sidebar sidebar-right">
 
 				<div class="widget">
+					<?php
+					$categories = file_get_contents('http://localhost/apitong/admin2/about/jsonserver/AboutPageCategories');
+					$categories = json_decode($categories);
+					foreach($categories as $row)
+					{
+						echo "<h4>" . $row->name . "</h4>";
+					}
+					?>
+					<!--
 					<h4>Kinds of Houses</h4>
 					<ul class="list-unstyled list-spaces">
 						<li><a href="assets/images/single.jpg"" target="_blank">Economic House</a><br><span class="small text-muted"></span></li>
@@ -88,6 +97,7 @@
 						<li><a href="">With dirty kitchen</a><br><span class="small text-muted"></span></li>
 						
 					</ul>
+					-->
 				</div>
 
 			</aside>
