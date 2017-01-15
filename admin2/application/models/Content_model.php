@@ -28,7 +28,7 @@ Class Content_model extends CI_Model
 			);
 			array_push($data, $temp);
 		}
-		$this->db->update_batch('contents', $data, 'content_desc');
+		return $this->db->update_batch('contents', $data, 'content_desc');
 	}
 
 	function getContentDescs() {

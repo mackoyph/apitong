@@ -222,7 +222,10 @@ class About extends CI_Controller {
 		}
 		else
 		{
-			redirect('about');
+			$data['errormsg'] = "Could not delete the article.";
+			$this->load->view('templates/header', $data);
+			$this->load->view('about/view', $data);
+			$this->load->view('templates/footer', $data);
 		}
 	}
 
