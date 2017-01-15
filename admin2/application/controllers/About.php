@@ -161,6 +161,12 @@ class About extends CI_Controller {
 			$this->debug('jsonserver', 'json=' . var_export($json, TRUE));
 			echo $json;
 		}
+		elseif(strcmp($item, "Contents") == 0)
+		{
+			$contents = $this->content_model->getContents();
+			$json = json_encode($contents);
+			echo $json;
+		}
 		elseif(strcmp($item, "footer-contact")==0)
 		{
 			$footerContact = $this->content_model->getFooterContact();
@@ -198,6 +204,44 @@ class About extends CI_Controller {
 			$this->debug('jsonserver', 'content=' . var_export($content, TRUE));
 			$json = json_encode($response);
 			echo $json;
+		}
+	}
+
+	function delete_article($id = FALSE)
+	{
+		if($id === FALSE)
+		{
+			$response = array(
+				"result" => "fail",
+				"message" => "No Article id provided"
+			);
+			echo json_encode($response);
+		}
+		if(!$this->session->has_userdata('logged_in'))
+		{
+			$response = array(
+				"result" => "fail",
+				"message" => "You are not authorized to access this resource."
+			);
+			echo json_encode($response);
+		}
+
+		$dbResult = $this->about_model->deleteArticle($id);
+		if ($dbResult === FALSE)
+		{
+			$response = array(
+				"result" => "fail",
+				"message" => "Could not delete the article."
+			);
+			echo json_encode($response);
+		}
+		else
+		{
+			$response = array(
+				"result" => "fail",
+				"message" => "Article was deleted."
+			);
+			echo json_encode($response);
 		}
 	}
 
