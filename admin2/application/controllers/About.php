@@ -138,6 +138,7 @@ class About extends CI_Controller {
 				'title' => 'no such article exists',
 				'text'=> 'none',
 				'author' =>'none'
+				
 			);
 		}
 		else
@@ -164,6 +165,12 @@ class About extends CI_Controller {
 		{
 			$footerContact = $this->content_model->getFooterContact();
 			$json = json_encode($footerContact);
+			echo $json;
+		}
+		elseif(strcmp($item, "AboutPageArticles") == 0)
+		{
+			$about_articles = $this->about_model->getAboutArticles();
+			$json = json_encode($about_articles);
 			echo $json;
 		}
 		elseif(strcmp($item, "AboutPageCategories") == 0)
