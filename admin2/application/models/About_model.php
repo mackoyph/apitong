@@ -26,6 +26,11 @@ Class About_model extends CI_Model
 
 	}
 
+	function addCategory($params)
+	{
+		return $this->db->insert('article_category', $params);
+	}
+
 	function getMainAboutArticle()
 	{
 		$this->db->select('*')
@@ -66,6 +71,14 @@ Class About_model extends CI_Model
 				->where('root_category', $this->About);
 		$query = $this->db->get();
 		return $query->result();
+	}
+
+	function getArticleCount($cat_id)
+	{
+		$this->db->select('*')
+				->from('article')
+				->where('category', $cat_id);
+		return $this->db->count_all_results();
 	}
 
 	function getAboutCategory() {
