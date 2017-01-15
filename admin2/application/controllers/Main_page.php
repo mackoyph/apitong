@@ -34,6 +34,12 @@ class Main_page extends CI_Controller {
 	
 	function index()
 	{
+		redirect('main_page/view');
+	}
+	function view($home = FALSE)
+	{
+		$this->debug('view', 'inside view method of main page controller');
+		$this->debug('view', '$home= ' . var_export($home, TRUE));
 		$this->check_loggedin();
 
 		$data = $this->setupData();
@@ -42,9 +48,23 @@ class Main_page extends CI_Controller {
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 
-		$content_descs = $this->content_model->getContentDescs();
+		if ($home === FALSE)
+		{
+			$data['home'] = FALSE;
+			$this->debug('view', 'home is false, getting non-home content');
+			$content_descs = $this->content_model->getContentDescs();
+			$data['contents'] = $this->content_model->getContents();
+		}
+		else
+		{
+			$data['home'] = TRUE;
+			$this->debug('view', 'home is not false, getting home content');
+			$content_descs = $this->content_model->getContentDescs(TRUE);
+			$data['contents'] = $this->content_model->getContents(TRUE);
+		}
 
-		$data['contents'] = $this->content_model->getContents();
+		
+		
 		foreach($content_descs as $row)
 		{
 			$key = $row->content_desc;
@@ -54,6 +74,7 @@ class Main_page extends CI_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{
+			$this->debug('view', 'form validation run = false, showing page');
 			//first run, display only, OR required field missing
 			$this->load->view('templates/header', $data);
 			$this->load->view('mainpage/view', $data);
@@ -61,12 +82,13 @@ class Main_page extends CI_Controller {
 		}
 		else
 		{
+			$this->debug('view', 'form validation success, saving to database');
 			//all fields present, save to database
 			$posts = $this->input->post();
 			$dbResult = $this->content_model->updateContents($posts);
 			if($dbResult === FALSE)
 			{
-				$this->debug('index', 'updating database failed');
+				$this->debug('view', 'updating database failed');
 				$data['errormsg'] = "Could not update database.";
 				$this->load->view('templates/header', $data);
 				$this->load->view('mainpage/view', $data);
@@ -74,7 +96,17 @@ class Main_page extends CI_Controller {
 			}
 			else 
 			{
-				redirect('main_page');
+				$this->debug('view', 'updating database success');
+				if ($home === FALSE)
+				{
+					$this->debug('view', 'redirecting to /main_page');
+					redirect('main_page');
+				}
+				else
+				{
+					$this->debug('view', 'redirecting to /home_page');
+					redirect('home_page');
+				}
 			}
 			
 		}
