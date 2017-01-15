@@ -62,10 +62,10 @@
 								foreach($about_articles as $row)
 								{
 									echo "<tr>";
-									echo "<td><h4>" . $row->title . "</h4></td>";
-									echo "<td>" . substr($row->text, 0, 100) ."..." . "</td>";
-									echo "<td>" . $row->author_username . "</td>";
-									echo "<td>" . $row->name . "</td>";
+									echo "<td><h4>" . htmlentities($row->title) . "</h4></td>";
+									echo "<td>" . htmlentities(substr($row->text, 0, 100) )."..." . "</td>";
+									echo "<td>" . htmlentities($row->author_username) . "</td>";
+									echo "<td>" . htmlentities($row->name) . "</td>";
 									echo "<td>";
 										echo "Last edited: " . $row->last_edit_date;
 										echo "<br/>Last edited by: " . $row->editor_username; 
