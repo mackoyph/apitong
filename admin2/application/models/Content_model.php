@@ -17,6 +17,14 @@ Class Content_model extends CI_Model
 		return $query->result();
 	}
 
+	function getContents()
+	{
+		$this->db->select('*')
+			->from('contents');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	function getFooterContact() 
 	{
 		$footerContact = array();
