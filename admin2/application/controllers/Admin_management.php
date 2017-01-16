@@ -131,6 +131,7 @@ class Admin_management extends CI_Controller {
 			$edit['email'] = $this->input->post('email');
 			$edit['contact'] = $this->input->post('contact');
 			$edit['address'] = $this->input->post('address');
+			$edit['password'] = $this->input->post('password');
 			
 			$dbresult = $this->admin->addAdminAccount($edit);
 			if($dbresult)

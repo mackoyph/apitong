@@ -14,7 +14,7 @@
 	<h1>CRUD for articles</h1>
 	<div class='row'>
 		<div class='col-md-12'>
-		<a href='#' class='btn btn-primary'>Add User</a>
+		<a href='#' class='btn btn-primary'>Add Article</a>
 		</div>
 	</div>
 	
