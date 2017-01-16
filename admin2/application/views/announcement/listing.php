@@ -19,6 +19,9 @@
 					<h3 class='box-title'>Announcements</h3>
 				</div>
 				<div class='box-body'>
+					<div class='btn-group' role='group'>
+						<a href='<?php echo base_url('announcement/new_announcement'); ?>' class='btn btn-default'>New Announcement</a>
+					</div>
 					<table id='announcement-table' class='table dataTable table-hover table-bordered'>
 						<thead>
 							<tr>
