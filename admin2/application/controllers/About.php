@@ -410,5 +410,25 @@ class About extends CI_Controller {
 			}
 		}
 	}
+
+	function delete_category($id = FALSE)
+	{
+		if ($id == FALSE) {
+			redirect('about');
+		}
+		$this->check_loggedin();	
+		$data=$this->setupData();	
+
+		$dbResult = $this->about_model->deleteCategory($id);
+		if ($dbResult === FALSE)
+		{
+			redirect('about');
+		}
+		else
+		{
+			$data['errormsg'] = "Could not delete the category.";
+			redirect('about');
+		}
+	}
 }
 ?>
