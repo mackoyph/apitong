@@ -70,7 +70,7 @@ Class Announcements extends CI_Model
 
 	function deleteAnnouncement($id)
 	{
-		return $this->db->delete('article', array('id' => $id, 'category'=>$this->Announcements));
+		return $this->db->delete('article', array('id' => $id, 'category'=>$this->ANNOUNCEMENTS));
 	}
 
 }
