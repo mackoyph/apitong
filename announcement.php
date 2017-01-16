@@ -63,28 +63,31 @@
 
 	<!-- container -->
 	<div class="container">
-
-		
+		<?php 
+			ini_set("allow_url_fopen", 1);
+			$article = file_get_contents('http://localhost/apitong/admin2/about/jsonserver/AboutPageArticles');
+			$articles = json_decode($article, TRUE);
+			$category_name = "Articles";
+			if(isset($_GET['category']))
+			{
+				$category_name = $_GET['category'];
+			}
+			//echo "ARTICLE=<br/>" . var_export($article, TRUE) . "<br/>";
+			
+		?>
 
 		<div class="row">
-			
 			<!-- Article main content -->
-			<article class="col-sm-8 maincontent">
-				<header class="page-header">
-					<h1 class="page-title">WELCOME! HERE'S THE ANNOUNCEMENT!!</h1>
-				</header>
-				
-				<center><p><img src="assets/images/black.png" width="200" ></p><center>
-				<h2>FEBRUARY 2017</h2>
-				<p>
-				
-				<br>SOFT OPENING OF APITONG!</p>
-				
-			
-				
-				
-				
-			</article>
+			<?php 
+			foreach($articles as $row){
+			echo "<article class='col-sm-8 maincontent'>";
+				echo "<header class='page-header'>";
+					echo "<h1 class='page-title'>".$row['title']."</h1>";
+				echo "</header>";
+				echo $row['creation_date'];
+				echo "<p>";
+				echo "<br>".$row['text']."</p></article><hr>";
+			}?>
 			<!-- /Article -->
 			
 			<!-- Sidebar -->
