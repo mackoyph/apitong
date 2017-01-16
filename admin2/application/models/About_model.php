@@ -56,6 +56,11 @@ Class About_model extends CI_Model
 		return $this->db->update('article_category', $dbParams);
 	}
 
+	function deleteCategory($cat_id)
+	{
+		return $this->db->delete('article_category', array('id'=>$cat_id));
+	}
+
 	function getMainAboutArticle()
 	{
 		$this->db->select('*')
