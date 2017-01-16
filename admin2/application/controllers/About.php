@@ -310,24 +310,14 @@ class About extends CI_Controller {
 
 	function delete_article($id = FALSE)
 	{
+		$this->debug('delete_article', 'article id= ' . var_export($id, TRUE));
 		if ($id == FALSE) {
 			redirect('about');
 		}
-		$this->check_loggedin();
-		
+		$this->check_loggedin();		
 
 		$dbResult = $this->about_model->deleteArticle($id);
-		if ($dbResult === FALSE)
-		{
-			redirect('about');
-		}
-		else
-		{
-			$data['errormsg'] = "Could not delete the article.";
-			$this->load->view('templates/header', $data);
-			$this->load->view('about/view', $data);
-			$this->load->view('templates/footer', $data);
-		}
+		redirect('about');
 	}
 
 	function new_category()
