@@ -55,7 +55,8 @@ Class Announcements extends CI_Model
 		$params['last_edit_date'] = date("Y-m-d H:i:s");
 		$params['author_id'] = $this->session->userdata('logged_in')['id'];
 		$params['last_edited_by'] = $params['author_id'];
-		return $this->db->insert('article', $dbParams);
+		//$this->debug("addAnnouncement", 'sql query=' . $this->db->set($params)->get_compiled_insert('article'));
+		return $this->db->insert('article', $params);
 	}
 
 	function updateAnnouncement($params)
@@ -65,6 +66,7 @@ Class Announcements extends CI_Model
 		$params['last_edited_by'] = $this->session->userdata('logged_in')['id'];
 		$this->db->where('id', $id);
 		$this->db->where('category', $this->ANNOUNCEMENTS);
+		
 		return $this->db->update('article', $params);
 	}
 
