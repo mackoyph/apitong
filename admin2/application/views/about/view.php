@@ -12,6 +12,14 @@
 <!-- Main content -->
 <section class="content">
 	<!-- Your Page Content Here -->
+	<?php 
+		if ($errormsg !== NULL)
+		{
+			echo "<div class='alert alert-danger'><h4><i class='icon fa fa-ban'></i>Alert!</h4>";
+			echo $errormsg;
+			echo "</div>";
+		}
+	?>
 	<div class='row'>
 		<div class='col-md-12'>
 			<div class='box box-successful'>
@@ -48,15 +56,7 @@
 					<a href="<?php echo base_url('about/new_article');?>" class='btn btn-primary'> New Article</a>
 				</div>
 				<div class='box-body'>
-					table for articles goes here
-					<?php 
-						if ($errormsg !== NULL)
-						{
-							echo "<div class='alert alert-danger'><h4><i class='icon fa fa-ban'></i>Alert!</h4>";
-							echo $errormsg;
-							echo "</div>";
-						}
-					?>
+					
 					<table id='article-table' class='table table-hover table-bordered'>
 						<thead>
 							<tr>
@@ -76,7 +76,7 @@
 									echo "<tr>";
 									echo "<td><h4>" . htmlentities($row->title) . "</h4>";
 									echo "<a href='" . base_url('about/edit_article/' . $row->id) . "' class='btn btn-xs pull-right btn-primary'>Edit</a>";
-									echo '<button data-articleid="' . $row->id . '" class="btn btn-warning btn-xs pull-left" data-toggle="modal" data-target="#deleteArticleModal" >Delete</button>';
+									echo '<button data-articleid="' . $row->id . '" class="btn btn-warning btn-xs pull-left" data-toggle="modal" data-title="' . $row->title . '" data-target="#deleteArticleModal" >Delete</button>';
 									echo "</td>";
 									echo "<td>" . htmlentities(substr($row->text, 0, 100) )."..." . "</td>";
 									echo "<td>" . htmlentities($row->author_username) . "</td>";
@@ -118,8 +118,11 @@
 							{
 								echo "<tr>";
 									echo "<td>" . $row->name;
-									echo "<a href='" . base_url('about/edit_category/'. $row->id) . "' class='pull-right btn btn-xs btn-warning'>Edit Name</a>";
-									
+									echo "<a href='" . base_url('about/edit_category/'. $row->id) . "' class='pull-right btn btn-xs btn-primary'>Edit Name</a> <br/>";
+									if($category_count[$row->id] == 0)
+									{
+										echo "<button data-categoryid='" . $row->id . "' data-toggle='modal' class='btn btn-xs btn-warning pull-left' data-name='" . $row->name . "' data-target='#deleteCategoryModal'>Delete</button>";
+									}
 									echo "</td>";
 									echo "<td>" . $category_count[$row->id] . "</td>";
 								echo '</tr>';
@@ -142,11 +145,31 @@
 					<h4 class="modal-title">Delete Confirmation</h4>
 	  			</div>
 	  			<div class="modal-body">
-					<p>Are you sure you want to delete the article?</p>
+					<p>Are you sure you want to delete the article ?</p>
+					<p id='title-to-delete'></p>
 	  			</div>
 	  			<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					<a id='deleteArticleLink' class="btn btn-warning">Delete</a>
+	  			</div>
+			</div><!-- /.modal-content -->
+  		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+	<div class="modal fade" id='deleteCategoryModal' tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Delete Confirmation</h4>
+	  			</div>
+	  			<div class="modal-body">
+					<p>Are you sure you want to delete the Category?</p>
+					<p id='category-to-delete'></p>
+	  			</div>
+	  			<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<a id='deleteCategoryLink' class="btn btn-warning">Delete</a>
 	  			</div>
 			</div><!-- /.modal-content -->
   		</div><!-- /.modal-dialog -->
@@ -166,9 +189,21 @@ $(function() {
 	$('#deleteArticleModal').on('show.bs.modal', function (event) {
 		var button = $(event.relatedTarget) // Button that triggered the modal
 		var articleid = button.data('articleid');
+		var title = button.data('title');
+		$('#title-to-delete').text("Title: " + title);
 		console.log("article id=" + articleid);
 		$("#deleteArticleLink").attr('href', "<?php echo base_url('about/delete_article/');?>" + articleid);
 
-	})
+	});
+
+	$('#deleteCategoryModal').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget) // Button that triggered the modal
+		var categoryid = button.data('categoryid');
+		var name = button.data('name');
+		$('#category-to-delete').text("Category Name: " + name);
+		console.log("category id=" + categoryid);
+		$("#deleteCategoryLink").attr('href', "<?php echo base_url('about/delete_category/');?>" + categoryid);
+
+	});
 });
 </script>
