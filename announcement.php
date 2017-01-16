@@ -65,15 +65,13 @@
 	<div class="container">
 		<?php 
 			ini_set("allow_url_fopen", 1);
-			$article = file_get_contents('http://localhost/apitong/admin2/about/jsonserver/AboutPageArticles');
-			$articles = json_decode($article, TRUE);
-			$category_name = "Articles";
-			if(isset($_GET['category']))
+			$page = 1;
+			if(isset($_GET['page']))
 			{
-				$category_name = $_GET['category'];
+				$page = $_GET['page'];
 			}
-			//echo "ARTICLE=<br/>" . var_export($article, TRUE) . "<br/>";
-			
+			$article = file_get_contents('http://localhost/apitong/admin2/about/announcementserver/' . $page);
+			$articles = json_decode($article, TRUE);
 		?>
 
 		<div class="row">
