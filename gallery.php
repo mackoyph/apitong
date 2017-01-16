@@ -79,10 +79,19 @@ var Pic = new Array();
 // to add more images, just continue
 // the pattern, adding to the array below
 
-Pic[0] = 'assets/images/img1.jpg'
-Pic[1] = 'assets/images/img2.jpg'
+<?php
+$path = "assets/uploads/";
+$files = scandir($path);
+$ctr=0;
+foreach ($files as &$value) {
+	if($value != '.' && $value != '..' && $value != '.gitkeep')
+	echo "Pic[".$ctr++."] = '".$path.$value."';";
+}
+?>
+
+/*Pic[1] = 'assets/images/img2.jpg'
 Pic[2] = 'assets/images/img3.jpg'
-Pic[3] = 'assets/images/img4.jpg'
+Pic[3] = 'assets/images/img4.jpg'*/
 
 // do not edit anything below this line
 var t;
@@ -136,7 +145,7 @@ window.onload=runSlideShow;
 
 			</aside>
 			<!-- /Sidebar -->
-			
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
