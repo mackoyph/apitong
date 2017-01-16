@@ -15,6 +15,7 @@ Class About_model extends CI_Model
 		$this->debug('addAboutArticle', 'dbParams=' . var_export($dbParams, TRUE));
 		return $this->db->insert('article', $dbParams);
 	}
+	
 	function getArticle($id)
 	{
 		$this->db->select('*')
