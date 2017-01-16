@@ -87,6 +87,16 @@
 				echo "<br>".$row['text']."</p></article><hr>";
 			}?>
 			<!-- /Article -->
+			<div class='btn-group' role='group'>
+				<?php
+					if($page != 1)
+					{
+						echo "<a href='announcement.php?page=" . ($page - 1) . "' class='btn btn-default'>< Previous</a>";
+					}
+					echo "<a class='btn btn-default' href='announcement.php?page=". $page. "'>" . $page . "</a>";
+					echo "<a class='btn btn-default' href='announcement.php?page=". ($page + 1) . "'>Next ></a>";
+				?>
+			</div>
 			
 			<!-- Sidebar -->
 			<aside class="col-sm-4 sidebar sidebar-right">
