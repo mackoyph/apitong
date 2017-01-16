@@ -67,6 +67,46 @@ class Announcement extends CI_Controller {
 		$this->load->view('templates/footer', $data);
 	}
 
+	function new_announcement()
+	{
+		$this->check_loggedin();
+		$data = $this->setupData();
+
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('title', 'Title', 'trim|required');
+		$this->form_validation->set_rules('editor1', 'Article Text', 'trim|required');
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->load->view('templates/header', $data);
+			$this->load->view('announcement/new', $data);
+			$this->load->view('templates/footer', $data);
+		}
+		else
+		{
+			$dbParams = array(
+				'title' => $this->input->post('title'),
+				'text' => $this->input->post('editor1')
+			);
+			$this->debug('new_announceent', 'dbParams=' . var_export($dbParams, TRUE));
+			$dbResult = $this->announcements->addAnnouncement($dbParams);
+			if($dbResult)
+			{
+				$this->debug('new', 'new announcement creation successful');
+				redirect('announcement/listing/1');
+			}
+			else
+			{
+				$this->debug('edit', 'could not update database, showing edit page again');
+				$data['errormsg'] = 'Could not add announcement to database.';
+				$this->load->view('templates/header', $data);
+				$this->load->view('announcement/new', $data);
+				$this->load->view('templates/footer', $data);
+			}
+		}
+
+	}
+
 	function edit($id=FALSE)
 	{
 		$this->debug('edit', 'inside edit, $id=' . var_export($id, TRUE));
