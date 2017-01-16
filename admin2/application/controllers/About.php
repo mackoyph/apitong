@@ -52,11 +52,14 @@ class About extends CI_Controller {
 		$data['about_articles'] = $articles;
 
 		$data['about_categories'] = $this->about_model->getAboutCategories();
+		$this->debug('index', 'about-categories=' . var_export($data['about_categories'], TRUE));
+
 		$count = array();
 		foreach($data['about_categories'] as $row)
 		{
 			$count[$row->id] = $this->about_model->getArticleCount($row->id);
 		}
+		$this->debug('index', 'article counts= ' . var_export($count, TRUE));
 		$data['category_count'] = $count;
 
 		$this->load->view('templates/header', $data);
@@ -148,6 +151,7 @@ class About extends CI_Controller {
 					'articles' => $article_array
 				);
 			}
+			$this->debug('jsonserver', 'AboutPageCategories=' . var_export($categories, TRUE));
 			$json = json_encode($categories);
 			echo $json;
 		}
