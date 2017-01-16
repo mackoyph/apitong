@@ -132,6 +132,7 @@ class Announcement extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('title', 'Title', 'trim|required');
 		$this->form_validation->set_rules('editor1', 'Article Text', 'trim|required');
+		
 		if ($this->form_validation->run() == FALSE)
 		{
 			$this->debug('edit', 'form validation run = false, showing page');
