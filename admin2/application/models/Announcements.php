@@ -37,6 +37,16 @@ Class Announcements extends CI_Model
 		return $query->result();
 	}
 
+	function getAnnouncement($id)
+	{
+		$this->db->select('*')
+				->from('article')
+				->where('id', $id)
+				->where('category', $this->ANNOUNCEMENTS);
+		$query = $this->db->get();
+		return $query->row();
+	}
+
 	function addAnnouncement($params)
 	{
 		$this->debug('addAnnouncement', 'params=' . var_export($params, TRUE));
