@@ -67,5 +67,98 @@ class Announcement extends CI_Controller {
 		$this->load->view('templates/footer', $data);
 	}
 
+	function edit($id=FALSE)
+	{
+		$this->debug('edit', 'inside edit, $id=' . var_export($id, TRUE));
+		$this->check_loggedin();
+		$data = $this -> setupData();
+		$data['jsvars'] = $data['jsvars'] = array( 'sidebar_active' => 'announcement');
+
+		if($id===FALSE)
+		{
+			$this->debug('edit', 'id is not set, redirecting to listing');
+			redirect('announcement/listing/1');
+		}
+
+		$data['article'] = $this->announcements->getAnnouncement($id);
+		$this->debug('edit', 'article='. var_export($data['article'], TRUE));
+		if($data['article'] === NULL)
+		{
+			$this->debug('edit', 'no such article exists, redirecting to listing');
+			redirect('announcement/listing/1');
+		}
+
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('title', 'Title', 'trim|required');
+		$this->form_validation->set_rules('editor1', 'Article Text', 'trim|required');
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->debug('edit', 'form validation run = false, showing page');
+			$this->load->view('templates/header', $data);
+			$this->load->view('announcement/edit', $data);
+			$this->load->view('templates/footer', $data);
+		}
+		else
+		{
+			$dbParam = array(
+				'title' => $this->input->post('title'),
+				'text' => $this->input->post('editor1'),
+				'id'=>$id
+			);
+			$dbResult = $this->announcements->updateAnnouncement($dbParam);
+			if($dbResult)
+			{
+				
+				$this->load->library('user_agent');
+				if ($this->agent->is_referral())
+				{
+					$this->debug('edit', 'db update success, redirecting to referrer');
+					echo $this->agent->referrer();
+				}
+				else
+				{
+					$this->debug('edit', 'db update success, redirecting to listing');
+					redirect('announcement/listing/1');
+				}
+			}
+			else
+			{
+				$this->debug('edit', 'could not update database, showing edit page again');
+				$data['errormsg'] = 'Could not update article to database.';
+				$this->load->view('templates/header', $data);
+				$this->load->view('announcement/edit', $data);
+				$this->load->view('templates/footer', $data);
+			}
+		}
+	}
+
+	function delete($id = FALSE)
+	{
+		$this->check_loggedin();
+		$data = $this->setupData();
+		if($id === FALSE)
+		{
+			redirect('announcement/listing/1');
+		}
+		if(!is_numeric($id))
+		{
+			show_404();
+		}
+		$dbResult = $this->announcements->deleteAnnouncement($id);
+		$this->debug('delete', 'dbResult=' . var_export($dbResult, TRUE));
+		$this->load->library('user_agent');
+		if ($this->agent->is_referral())
+		{
+			$this->debug('delete', 'db delete op success, redirecting to referrer');
+			echo $this->agent->referrer();
+		}
+		else
+		{
+			$this->debug('delete', 'redirecting to listing/1');
+			redirect('announcement/listing/1');
+		}
+	}
+
 }
 ?>
