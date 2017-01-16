@@ -1,7 +1,7 @@
 <?php
 Class Announcements extends CI_Model
 {
-	private $c = "ABOUT MODEL";
+	private $c = "Announcements MODEL";
 
 	private $ANNOUNCEMENTS = 7;
 	private $LIMIT = 10;
