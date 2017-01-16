@@ -89,6 +89,15 @@ class About extends CI_Controller {
 		echo $json;
 	}
 
+	function announcementserver($page)
+	{
+		$this->load->model('announcements');
+		
+			$announcements = $this->announcements->getAnnouncements($page);
+			$json = json_encode($announcements);
+			echo $json;
+	}
+
 	function jsonServer($item)
 	{		
 		$this->debug("jsonserver", "ITEM = ". var_export($item, TRUE));
