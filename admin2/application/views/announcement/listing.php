@@ -34,7 +34,11 @@
 							{
 								echo "<tr>";
 								echo "<td>" . $row->creation_date . "</td>";
-								echo "<td>" . htmlentities($row->title) . "</td>";
+								echo "<td>" . htmlentities($row->title) . '<br/>';
+								echo "<div class='btn-group' role='group'>";
+								echo "<a href='" . base_url('announcement/edit/' . $row->id) . "' class='btn btn-default btn-xs'>Edit</a>";
+								echo "<button data-toggle='modal' data-target='deleteAnnouncementModal' class='btn btn-default btn-xs'>Delete</button></div>";
+								echo  "</td>";
 								echo "<td>" . htmlentities(substr($row->text, 0, 100)) . " ... </td>";
 								echo "<td> Author: " . $row->author . "<br/>Last Edited by: " . $row->editor . "<br/>Last edited on: " . $row->last_edit_date . "</td>"; 
 								echo "</tr>";
