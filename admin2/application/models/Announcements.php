@@ -60,6 +60,7 @@ Class Announcements extends CI_Model
 
 	function updateAnnouncement($params)
 	{
+		$id = $params['id'];
 		$params['last_edit_date'] = date("Y-m-d H:i:s");
 		$params['last_edited_by'] = $this->session->userdata('logged_in')['id'];
 		$this->db->where('id', $id);
