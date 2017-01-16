@@ -1,20 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4
--- https://www.phpmyadmin.net/
+-- version 4.5.2
+-- http://www.phpmyadmin.net
 --
--- Host: localhost:3306
--- Generation Time: Jan 15, 2017 at 03:00 PM
--- Server version: 5.6.34
--- PHP Version: 5.6.27
+-- Host: localhost
+-- Generation Time: Jan 16, 2017 at 03:04 AM
+-- Server version: 10.1.16-MariaDB
+-- PHP Version: 5.5.38
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `apitong`
@@ -75,7 +69,7 @@ CREATE TABLE `article` (
 INSERT INTO `article` (`id`, `author_id`, `creation_date`, `last_edited_by`, `last_edit_date`, `gallery`, `title`, `text`, `category`) VALUES
 (1, 1, '2017-01-13 00:00:00', 1, '2017-01-15 19:56:35', 0, 'About Us', '<p>Apitong has created a self-sustaining and integrated masterplanned city development called Communicity. Apitong is the residential component of the Communicity. We are not just providing the Filipino family a mere residence but blending the bond of a community and the exciting bustle of the city.</p>\r\n\r\n<p>Why Apitong Village? The land where this village is situated used to be a place where Apitong Trees grow gracefully and fruitfully before it was developed, hence naming the street leading to the village, Apitong Drive. And as we think for a name, someone suggested why not use Apitong? It depicts all the good elements that a tree can have, a strong branch, a useful fruits and leaves, almost all of its parts are advantageous. Just like our village, where everyone is willing to help each other, a village bound by a good relationship, a useful and helpful community, and where everyone will have their minds at a peaceful state.</p>', 2),
 (2, 1, '2017-01-13 00:00:00', 1, '2017-01-15 19:56:49', NULL, 'About the location', '<p>The development is located in the Apitong road.</p>', 4),
-(3, 1, '2017-01-12 00:00:00', 1, '2017-01-13 00:00:00', NULL, 'History in the 90\'s', 'asdfasdfasdfasdf', 3),
+(3, 1, '2017-01-12 00:00:00', 1, '2017-01-13 00:00:00', NULL, 'History in the 90''s', 'asdfasdfasdfasdf', 3),
 (4, 3, '2017-01-13 00:00:00', 3, '2017-01-13 00:00:00', NULL, 'History of the 80s', 'asdfasdfasdfasdf', 3),
 (5, 1, '2017-01-14 21:50:27', 1, '2017-01-14 21:50:27', NULL, 'Single Detached home', '<p>Type your article hereasdfasdfasdf</p>', 4),
 (6, 1, '2017-01-15 05:59:45', 1, '2017-01-15 05:59:45', NULL, 'asdfasdfasdfasdf', '<p>Type your article hereasdfasdfasdfasdfasdf</p>', 4),
@@ -168,8 +162,8 @@ CREATE TABLE `user_access` (
 --
 
 INSERT INTO `user_access` (`ACCESS_NO`, `ACCESS_FIRSTNAME`, `ACCESS_LASTNAME`, `ACCESS_USERNAME`, `ACCESS_PASSWORD`, `ACCESS_EMAIL`, `ACCESS_PHOTO`, `ACCESS_CONTACT`, `ACCESS_ADDRESS`, `ACCESS_STATUS`, `DATE_REGISTERED`, `LAST_LOGIN`) VALUES
-(1, 'Test', 'Test', 'test', '098f6bcd4621d373cade4e832627b4f6', 'test@test.com', 'n/a', 'test', 'test', 1, '2016-10-06 21:36:48', '2017-01-15 18:34:27'),
-(2, 'Tester', 'Tester', 'test2', '1f10e0eeec7a2950849a2a1d8fa9ecbd', 'testtest@gmail.com', 'img/profile/586a37862fefe12166026_1097660480252157_1099898397_n.jpg', '919191919', 'Test Address', 0, '2017-01-02 19:20:38', '2017-01-02 19:20:38');
+(2, 'Tester', 'Tester', 'test2', '1f10e0eeec7a2950849a2a1d8fa9ecbd', 'testtest@gmail.com', 'img/profile/586a37862fefe12166026_1097660480252157_1099898397_n.jpg', '919191919', 'Test Address', 0, '2017-01-02 19:20:38', '2017-01-02 19:20:38'),
+(5, 'user', 'user', 'username', '5f4dcc3b5aa765d61d8327deb882cf99', 'username@this.com', '', '0912', 'here', 1, '2017-01-16 07:11:03', '2017-01-16 07:11:48');
 
 --
 -- Indexes for dumped tables
@@ -241,7 +235,7 @@ ALTER TABLE `contents`
 -- AUTO_INCREMENT for table `user_access`
 --
 ALTER TABLE `user_access`
-  MODIFY `ACCESS_NO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ACCESS_NO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- Constraints for dumped tables
 --
@@ -260,7 +254,3 @@ ALTER TABLE `article`
 ALTER TABLE `article_category`
   ADD CONSTRAINT `article_category_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `admin_access` (`ACCESS_NO`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `article_category_ibfk_2` FOREIGN KEY (`last_edited_by`) REFERENCES `admin_access` (`ACCESS_NO`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
