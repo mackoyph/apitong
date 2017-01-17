@@ -141,7 +141,7 @@
 		<li id='home-page'><a href="<?php echo base_url('home_page');?>"><i class="fa fa-home"></i> <span>Home Page</span></a></li>
 		<li id='announcement'><a href="<?php echo base_url('announcement');?>"><i class="fa fa-bullhorn"></i> <span>Announcement</span></a></li>
 		<li id='about-page'><a href="<?php echo base_url('About');?>"><i class="fa fa-question-circle"></i> <span>About</span></a></li>
-		<li id='home'><a href="<?php echo base_url('main_page');?>"><i class="fa fa-picture-o"></i> <span>Gallery</span></a></li>
+		<li id='home'><a href="<?php echo base_url('gallery');?>"><i class="fa fa-picture-o"></i> <span>Gallery</span></a></li>
 		<li id='home'><a href="<?php echo base_url('main_page');?>"><i class="fa fa-cog"></i> <span>Settings</span></a></li>
 		</ul>
 		<!-- /.sidebar-menu -->
