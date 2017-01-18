@@ -80,11 +80,11 @@ var Pic = new Array();
 // the pattern, adding to the array below
 
 <?php
-$path = "assets/uploads/";
+$path = "admin2/assets/uploads/gallery/";
 $files = scandir($path);
 $ctr=0;
 foreach ($files as &$value) {
-	if($value != '.' && $value != '..' && $value != '.gitkeep')
+	if($value != '.' && $value != '..' && $value != '.gitkeep' && $value[0] != '.')
 	echo "Pic[".$ctr++."] = '".$path.$value."';";
 }
 ?>
