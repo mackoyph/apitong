@@ -14,6 +14,11 @@
 	<link rel="stylesheet" href="<?php echo base_url('assets/plugins/ionicons/ionicons.min.css');?>">
 
 	<link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables/dataTables.bootstrap.css');?>">
+
+
+	<link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url('assets/plugins/elfinder/css/elfinder.min.css'); ?>">
+
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/plugins/jquery-ui-1.12.1.custom/jquery-ui.css'); ?>">
 	
 	<!-- AdminLTE Skins. We have chosen the skin-blue for this starter
 		page. However, you can choose any other skin. Make sure you
@@ -27,7 +32,11 @@
 	<link rel="stylesheet" href="<?php echo base_url('assets/dist/css/AdminLTE.min.css');?>">
 	
 	<!-- jQuery 2.2.3 -->
-	<script src="<?php echo base_url('assets/plugins/jQuery/jquery-2.2.3.min.js');?>"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	<!-- jquery ui -->
+	<script src="<?php echo base_url('assets/plugins/jquery-ui-1.12.1.custom/jquery-ui.min.js');?>"></script>
+	
 	<!-- Bootstrap 3.3.6 -->
 	<script src="<?php echo base_url('assets/bootstrap/js/bootstrap.min.js');?>"></script>
 
@@ -38,7 +47,7 @@
 	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
 </head>
-<body class="hold-transition skin-blue fixed">
+<body class="hold-transition skin-blue">
 <div class="wrapper">
 
 	<!-- Main Header -->
@@ -140,6 +149,7 @@
 		<li id='announcement'><a href="<?php echo base_url('announcement');?>"><i class="fa fa-bullhorn"></i> <span>Announcement</span></a></li>
 		<li id='about-page'><a href="<?php echo base_url('About');?>"><i class="fa fa-question-circle"></i> <span>About</span></a></li>
 		<li id='home'><a href="<?php echo base_url('gallery');?>"><i class="fa fa-picture-o"></i> <span>Gallery</span></a></li>
+		<li id='gallery2'><a href="<?php echo base_url('gallery2');?>"><i class="fa fa-picture-o"></i> <span>Gallery2</span></a></li>
 		<li id='home'><a href="<?php echo base_url('main_page');?>"><i class="fa fa-cog"></i> <span>Settings</span></a></li>
 		</ul>
 		<!-- /.sidebar-menu -->
