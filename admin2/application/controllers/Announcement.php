@@ -53,7 +53,7 @@ class Announcement extends CI_Controller {
 		$data['currentPage'] = $page;
 		if($page > $data['numPages'])
 		{
-			redirect('announcement/listing/1');
+			redirect('home');
 		}
 		
 		$announcements = $this->announcements->getAnnouncements($page);
