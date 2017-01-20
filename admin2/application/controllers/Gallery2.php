@@ -28,7 +28,6 @@ class Gallery2 extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('announcements');
 		date_default_timezone_set("Asia/Manila");
 	}
 
