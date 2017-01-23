@@ -5,13 +5,13 @@
 	</h1>
 	<ol class="breadcrumb">
 		<li><a href="<?php echo base_url('home');?>"><i class="fa fa-dashboard"></i> Home</a></li>
+		<li><a href="<?php echo base_url('admin_management'); ?>"><i class='fa fa-users'></i>Admin Management</a></li>
 	</ol>
 </section>
 
 <!-- Main content -->
 <section class="content">
 	<!-- Your Page Content Here -->
-	<h1>CRUD for user accounts</h1>
 	<div class='row'>
 		<div class='col-md-12'>
 		<a href='<?php echo base_url('admin_management/add');?>' class='btn btn-primary'>Add User</a>
@@ -22,7 +22,7 @@
 		<div class='col-md-12'>
 		<div class='box box-success'>
 			<div class='box-header with-border'>
-				Admin Accounts
+				<h3 class='box-title'>Admin Accounts</h3>
 			</div>
 			<div class='box-body'>
 			<table id='admin-accounts-table' class='table dataTable table-bordered table-hover'>

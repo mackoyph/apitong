@@ -45,12 +45,3 @@
 	<!-- end row -->
 </section>
 <!-- /.content -->
-<script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
-<script src="<?php echo base_url('assets/plugins/select2/select2.full.min.js');?>"></script>
-<script>
-	CKEDITOR.replace( 'editor1' );
-	$(function(){
-		console.log('applying select2 library');
-		$(".select2").select2();
-	});
-</script>

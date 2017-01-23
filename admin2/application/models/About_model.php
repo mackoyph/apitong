@@ -15,6 +15,7 @@ Class About_model extends CI_Model
 		$this->debug('addAboutArticle', 'dbParams=' . var_export($dbParams, TRUE));
 		return $this->db->insert('article', $dbParams);
 	}
+	
 	function getArticle($id)
 	{
 		$this->db->select('*')
@@ -54,6 +55,11 @@ Class About_model extends CI_Model
 	{
 		$this->db->where('id', $dbParams['id']);
 		return $this->db->update('article_category', $dbParams);
+	}
+
+	function deleteCategory($cat_id)
+	{
+		return $this->db->delete('article_category', array('id'=>$cat_id));
 	}
 
 	function getMainAboutArticle()

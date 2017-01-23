@@ -97,12 +97,5 @@ class Article_management extends CI_Controller {
 			redirect('login');			
 		}
 	}
-
-	function logout()
-    {
-        $this->session->unset_userdata('logged_in');
-        session_destroy();
-        redirect('login');
-    }
 }
 ?>

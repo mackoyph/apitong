@@ -52,11 +52,14 @@ class About extends CI_Controller {
 		$data['about_articles'] = $articles;
 
 		$data['about_categories'] = $this->about_model->getAboutCategories();
+		$this->debug('index', 'about-categories=' . var_export($data['about_categories'], TRUE));
+
 		$count = array();
 		foreach($data['about_categories'] as $row)
 		{
 			$count[$row->id] = $this->about_model->getArticleCount($row->id);
 		}
+		$this->debug('index', 'article counts= ' . var_export($count, TRUE));
 		$data['category_count'] = $count;
 
 		$this->load->view('templates/header', $data);
@@ -84,6 +87,15 @@ class About extends CI_Controller {
 		$this->debug("articleserver", 'response' . var_export($response, TRUE));
 		$json = json_encode($response);
 		echo $json;
+	}
+
+	function announcementserver($page)
+	{
+		$this->load->model('announcements');
+		
+			$announcements = $this->announcements->getAnnouncements($page);
+			$json = json_encode($announcements);
+			echo $json;
 	}
 
 	function jsonServer($item)
@@ -148,6 +160,7 @@ class About extends CI_Controller {
 					'articles' => $article_array
 				);
 			}
+			$this->debug('jsonserver', 'AboutPageCategories=' . var_export($categories, TRUE));
 			$json = json_encode($categories);
 			echo $json;
 		}
@@ -306,24 +319,14 @@ class About extends CI_Controller {
 
 	function delete_article($id = FALSE)
 	{
+		$this->debug('delete_article', 'article id= ' . var_export($id, TRUE));
 		if ($id == FALSE) {
 			redirect('about');
 		}
-		$this->check_loggedin();
-		
+		$this->check_loggedin();		
 
 		$dbResult = $this->about_model->deleteArticle($id);
-		if ($dbResult === FALSE)
-		{
-			redirect('about');
-		}
-		else
-		{
-			$data['errormsg'] = "Could not delete the article.";
-			$this->load->view('templates/header', $data);
-			$this->load->view('about/view', $data);
-			$this->load->view('templates/footer', $data);
-		}
+		redirect('about');
 	}
 
 	function new_category()
@@ -414,6 +417,26 @@ class About extends CI_Controller {
 				$this->load->view('about/edit_category', $data);
 				$this->load->view('templates/footer', $data);
 			}
+		}
+	}
+
+	function delete_category($id = FALSE)
+	{
+		if ($id == FALSE) {
+			redirect('about');
+		}
+		$this->check_loggedin();	
+		$data=$this->setupData();	
+
+		$dbResult = $this->about_model->deleteCategory($id);
+		if ($dbResult === FALSE)
+		{
+			redirect('about');
+		}
+		else
+		{
+			$data['errormsg'] = "Could not delete the category.";
+			redirect('about');
 		}
 	}
 }

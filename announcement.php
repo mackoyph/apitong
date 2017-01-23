@@ -10,31 +10,10 @@
 
  ?>
 
-
-	<meta charset="utf-8">
-	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="">
-	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
-	
-	<title>HOMEOWNERS - Apitong Village </title>
-
-	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
-	
-	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
-
-	<!-- Custom styles for our template -->
-	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen" >
-	<link rel="stylesheet" href="assets/css/main.css">
-
-	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-	<script src="assets/js/html5shiv.js"></script>
-	<script src="assets/js/respond.min.js"></script>
-	<![endif]-->
-</head>
-
+<html>
+<?php 
+	$page_title = "Announcements";
+	include_once('header.php'); ?>
 <body>
 <?php include 'getcontent.php'; ?>
 	<!-- Fixed navbar -->
@@ -65,15 +44,13 @@
 	<div class="container">
 		<?php 
 			ini_set("allow_url_fopen", 1);
-			$article = file_get_contents('http://localhost/apitong/admin2/about/jsonserver/AboutPageArticles');
-			$articles = json_decode($article, TRUE);
-			$category_name = "Articles";
-			if(isset($_GET['category']))
+			$page = 1;
+			if(isset($_GET['page']))
 			{
-				$category_name = $_GET['category'];
+				$page = $_GET['page'];
 			}
-			//echo "ARTICLE=<br/>" . var_export($article, TRUE) . "<br/>";
-			
+			$article = file_get_contents('http://localhost/apitong/admin2/about/announcementserver/' . $page);
+			$articles = json_decode($article, TRUE);
 		?>
 
 		<div class="row">
@@ -89,6 +66,16 @@
 				echo "<br>".$row['text']."</p></article><hr>";
 			}?>
 			<!-- /Article -->
+			<div class='btn-group' role='group'>
+				<?php
+					if($page != 1)
+					{
+						echo "<a href='announcement.php?page=" . ($page - 1) . "' class='btn btn-default'>< Previous</a>";
+					}
+					echo "<a class='btn btn-default' href='announcement.php?page=". $page. "'>" . $page . "</a>";
+					echo "<a class='btn btn-default' href='announcement.php?page=". ($page + 1) . "'>Next ></a>";
+				?>
+			</div>
 			
 			<!-- Sidebar -->
 			<aside class="col-sm-4 sidebar sidebar-right">

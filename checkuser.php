@@ -31,7 +31,7 @@
 		$update = mysqli_query($dbcon, "UPDATE user_access SET ACCESS_STATUS = 1 WHERE ACCESS_NO = '".$row['ACCESS_NO']."'");
 	     if($update){ 
 	   
-	     	header('location: announcement.php?success=1');
+	     	header('location: announcement.php?success=1&page=1');
 		  } 
 		  else { 
 		  	echo "not updated!  Error: " . $sql . " " . mysqli_error($dbcon) ."<br>";
